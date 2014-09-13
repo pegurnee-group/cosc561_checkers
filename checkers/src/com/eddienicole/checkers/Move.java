@@ -2,12 +2,20 @@ package com.eddienicole.checkers;
 
 public class Move {
 	
-	private PlayableSpace from;
-	private PlayableSpace to;
+	private PlayableSpaceInterface from;
+	private PlayableSpaceInterface to;
 	
-	public Move(PlayableSpace from, PlayableSpace to) {
+	public Move(PlayableSpaceInterface from, PlayableSpaceInterface to) {
 		this.from = from;
 		this.to = to;
+	}
+	
+	public PlayableSpaceInterface getFrom() {
+		return this.from;
+	}
+	
+	public PlayableSpaceInterface getTo() {
+		return this.to;
 	}
 
 }

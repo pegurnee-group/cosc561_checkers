@@ -1,22 +1,20 @@
 package com.eddienicole.checkers;
 
-import javax.swing.JButton;
+public class PlayableSpace implements PlayableSpaceInterface {
 
-public class PlayableSpace {
-	
 	char column;
 	int row;
 	boolean isOccupied;
-	JButton button;
-	
-	public PlayableSpace(char column, int row) {
+	boolean isRed;
+	boolean isKing;
+
+	public PlayableSpace(char column, int row, boolean isOccupied,
+			boolean isRed, boolean isKing) {
 		this.column = column;
 		this.row = row;
-	}
-
-	public void addActionListener(Controller controller) {
-		button.addActionListener(controller);
-		
+		this.isOccupied = isOccupied;
+		this.isRed = isRed;
+		this.isKing = isKing;
 	}
 
 	public char getColumn() {
@@ -41,6 +39,14 @@ public class PlayableSpace {
 
 	public void setOccupied(boolean isOccupied) {
 		this.isOccupied = isOccupied;
+	}
+
+	public boolean isRed() {
+		return this.isRed;
+	}
+
+	public boolean isKing() {
+		return this.isKing;
 	}
 
 }
