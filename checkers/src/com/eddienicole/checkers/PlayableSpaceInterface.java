@@ -8,4 +8,10 @@ public interface PlayableSpaceInterface {
 
 	boolean isKing();
 
+	void setOccupied(boolean b);
+
+	void setRed(boolean b);
+
+	void setKing(boolean b);
+
 }

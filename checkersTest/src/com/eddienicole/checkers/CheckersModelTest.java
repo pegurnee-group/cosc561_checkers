@@ -29,4 +29,35 @@ public class CheckersModelTest extends TestCase {
 		assertSame(expectedSpaces[0], checkersModel.getPlayableSpaces()[0][0]);
 	}
 
+	public void testConstructorPopulatesPlayableSpacesWIthStartingLayout()
+			throws Exception {
+		CheckersModel checkersModel = new CheckersModel();
+
+		PlayableSpace[][] modelSpaces = (PlayableSpace[][]) checkersModel
+				.getPlayableSpaces();
+
+		for (int i = 0; i < modelSpaces.length; i++) {
+			for (int j = 0; j < modelSpaces[i].length; j++) {
+				assertTrue(modelSpaces[i][j] instanceof PlayableSpaceInterface);
+				if (i >= 0 && i < 3) {
+					assertTrue(modelSpaces[i][j].isOccupied());
+					assertTrue(modelSpaces[i][j].isRed());
+				} else if (i < 5) {
+					assertFalse(modelSpaces[i][j].isOccupied());
+				} else {
+					assertTrue(modelSpaces[i][j].isOccupied());
+					assertFalse(modelSpaces[i][j].isRed());
+				}
+
+			}
+		}
+
+		MockPlayableSpace[][] mockSpaces = new MockPlayableSpace[8][4];
+		for (int i = 0; i < mockSpaces.length; i++) {
+			for (int j = 0; j < mockSpaces[i].length; j++) {
+				mockSpaces[i][j] = new MockPlayableSpace();
+			}
+		}
+
+	}
 }

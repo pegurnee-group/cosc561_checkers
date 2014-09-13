@@ -16,6 +16,22 @@ public class CheckerboardViewTest extends TestCase {
 			}
 		}
 
+		playableSpaces[0][1].setOccupied(true);
+		playableSpaces[0][1].setRed(true);
+
+		playableSpaces[1][0].setOccupied(true);
+		playableSpaces[1][0].setKing(true);
+
+		playableSpaces[4][1].setOccupied(true);
+		playableSpaces[4][1].setRed(true);
+		playableSpaces[4][1].setKing(true);
+
+		playableSpaces[6][3].setOccupied(true);
+
+		playableSpaces[7][0].setOccupied(true);
+
+		playableSpaces[7][2].setOccupied(true);
+
 		CheckerboardView checkerboardView = new CheckerboardView();
 
 		String expectedString = "   a b c d e f g h\n"
