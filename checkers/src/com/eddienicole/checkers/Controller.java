@@ -5,16 +5,13 @@ import java.awt.event.ActionListener;
 
 public class Controller implements ActionListener {
 
-	private CheckersModel checkersModel;
-	private CheckerboardView checkerboardView;
+	private final CheckersModel checkersModel;
+	private final CheckerboardView checkerboardView;
 	private AI ai;
 
 	public Controller() {
 		this.checkersModel = new CheckersModel();
 		this.checkerboardView = new CheckerboardView();
-
-		this.checkerboardView.addActionListeners(this);
-		
 
 	}
 
