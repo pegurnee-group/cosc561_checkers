@@ -2,35 +2,14 @@ package com.eddienicole.checkers;
 
 public class PlayableSpace implements PlayableSpaceInterface {
 
-	char column;
-	int row;
 	boolean isOccupied;
 	boolean isRed;
 	boolean isKing;
 
-	public PlayableSpace(char column, int row, boolean isOccupied,
-			boolean isRed, boolean isKing) {
-		this.column = column;
-		this.row = row;
-		this.isOccupied = isOccupied;
-		this.isRed = isRed;
-		this.isKing = isKing;
-	}
-
-	public char getColumn() {
-		return column;
-	}
-
-	public void setColumn(char column) {
-		this.column = column;
-	}
-
-	public int getRow() {
-		return row;
-	}
-
-	public void setRow(int row) {
-		this.row = row;
+	public PlayableSpace() {
+		this.isOccupied = false;
+		this.isRed = false;
+		this.isKing = false;
 	}
 
 	public boolean isOccupied() {
@@ -45,8 +24,16 @@ public class PlayableSpace implements PlayableSpaceInterface {
 		return this.isRed;
 	}
 
+	public void setRed(boolean isRed) {
+		this.isRed = isRed;
+	}
+
 	public boolean isKing() {
 		return this.isKing;
+	}
+
+	public void setKing(boolean isKing) {
+		this.isKing = isKing;
 	}
 
 }
