@@ -2,13 +2,14 @@ package com.eddienicole.checkers;
 
 public class MockPlayableSpace implements PlayableSpaceInterface {
 
-	private char column;
-	private int row;
 	boolean isOccupied;
 	boolean isRed;
 	boolean isKing;
 
 	public MockPlayableSpace() {
+		this.isOccupied = false;
+		this.isRed = false;
+		this.isKing = false;
 	}
 
 	public boolean isOccupied() {
@@ -27,16 +28,12 @@ public class MockPlayableSpace implements PlayableSpaceInterface {
 		this.isKing = isKing;
 	}
 
-	public char getColumn() {
-		return column;
-	}
-
-	public int getRow() {
-		return row;
-	}
-
 	public boolean isRed() {
 		return isRed;
+	}
+
+	public void setRed(boolean isRed) {
+		this.isRed = isRed;
 	}
 
 }
