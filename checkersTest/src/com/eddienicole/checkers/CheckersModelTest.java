@@ -9,23 +9,18 @@ public class CheckersModelTest extends TestCase {
 	@Test
 	public void testGetters() throws Exception {
 		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
-
 		MockPlayableSpace[] expectedSpaces = new MockPlayableSpace[32];
 
 		for (int i = 0; i < expectedSpaces.length; i++) {
 			expectedSpaces[i] = new MockPlayableSpace();
 		}
-
 		int i = 0;
-
 		for (int j = 0; j < playableSpaces.length; j++) {
 			for (int k = 0; k < playableSpaces[j].length; k++) {
 				playableSpaces[j][k] = expectedSpaces[i++];
 			}
 		}
-
 		CheckersModel checkersModel = new CheckersModel(playableSpaces);
-
 		assertSame(expectedSpaces[0], checkersModel.getPlayableSpaces()[0][0]);
 	}
 
@@ -42,13 +37,14 @@ public class CheckersModelTest extends TestCase {
 				if (i >= 0 && i < 3) {
 					assertTrue(modelSpaces[i][j].isOccupied());
 					assertTrue(modelSpaces[i][j].isRed());
+					assertFalse(modelSpaces[i][j].isKing());
 				} else if (i < 5) {
 					assertFalse(modelSpaces[i][j].isOccupied());
 				} else {
 					assertTrue(modelSpaces[i][j].isOccupied());
 					assertFalse(modelSpaces[i][j].isRed());
+					assertFalse(modelSpaces[i][j].isKing());
 				}
-
 			}
 		}
 
@@ -58,6 +54,5 @@ public class CheckersModelTest extends TestCase {
 				mockSpaces[i][j] = new MockPlayableSpace();
 			}
 		}
-
 	}
 }
