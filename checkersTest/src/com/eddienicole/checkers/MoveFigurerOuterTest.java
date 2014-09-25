@@ -24,21 +24,12 @@ public class MoveFigurerOuterTest extends TestCase {
 		fromSpace.setOccupied(true);
 		fromSpace.setRed(true);
 
-		boolean itIsRedsTurn = true;
+		boolean itIsRedsTurn = false;
 
 		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
 				playableSpaces, itIsRedsTurn);
 
-		assertEquals(1, legalMoves.size());
-
-		MockMove expectedLegalMove = new MockMove();
-
-		MockPlayableSpace expectedToSpace = playableSpaces[6][0];
-
-		expectedLegalMove.setFrom(fromSpace);
-		expectedLegalMove.setTo(expectedToSpace);
-
-		assertEquals(expectedLegalMove, legalMoves.get(0));
+		assertEquals(0, legalMoves.size());
 	}
 
 	@Test
@@ -57,11 +48,57 @@ public class MoveFigurerOuterTest extends TestCase {
 		fromSpace.setOccupied(true);
 		fromSpace.setRed(true);
 
-		boolean itIsRedsTurn = false;
+		boolean itIsRedsTurn = true;
 
 		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
 				playableSpaces, itIsRedsTurn);
 
-		assertEquals(0, legalMoves.size());
+		assertEquals(1, legalMoves.size());
+
+		MockMove expectedLegalMove = new MockMove();
+
+		MockPlayableSpace expectedToSpace = playableSpaces[6][0];
+
+		expectedLegalMove.setFrom(fromSpace);
+		expectedLegalMove.setTo(expectedToSpace);
+
+		assertEquals(expectedLegalMove, legalMoves.get(0));
+	}
+
+	@Test
+	public void testFigureOutAdjacentMovesBottomRowAsRed() throws Exception {
+
+		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
+
+		for (int i = 0; i < playableSpaces.length; i++) {
+			for (int j = 0; j < playableSpaces[i].length; j++) {
+				playableSpaces[i][j] = new MockPlayableSpace();
+			}
+		}
+
+		for (int i = 0; i < playableSpaces[7].length; i++) {
+			MockPlayableSpace fromSpace = playableSpaces[7][i];
+
+			fromSpace.setOccupied(true);
+			fromSpace.setRed(true);
+		}
+
+		boolean itIsRedsTurn = true;
+
+		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
+				playableSpaces, itIsRedsTurn);
+
+		assertEquals(6, legalMoves.size());
+
+		/*
+		 * MockMove expectedLegalMove = new MockMove();
+		 * 
+		 * MockPlayableSpace expectedToSpace = playableSpaces[6][0];
+		 * 
+		 * expectedLegalMove.setFrom(fromSpace);
+		 * expectedLegalMove.setTo(expectedToSpace);
+		 * 
+		 * assertEquals(expectedLegalMove, legalMoves.get(0));
+		 */
 	}
 }
