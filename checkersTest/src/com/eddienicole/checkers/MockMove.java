@@ -20,19 +20,19 @@ public class MockMove implements MoveInterface {
 		if (!(obj instanceof MoveInterface)) {
 			return false;
 		}
-		MockMove other = (MockMove) obj;
+		MoveInterface other = (MoveInterface) obj;
 		if (this.from == null) {
-			if (other.from != null) {
+			if (other.getFrom() != null) {
 				return false;
 			}
-		} else if (!this.from.equals(other.from)) {
+		} else if (!this.from.equals(other.getFrom())) {
 			return false;
 		}
 		if (this.to == null) {
-			if (other.to != null) {
+			if (other.getTo() != null) {
 				return false;
 			}
-		} else if (!this.to.equals(other.to)) {
+		} else if (!this.to.equals(other.getTo())) {
 			return false;
 		}
 		return true;
