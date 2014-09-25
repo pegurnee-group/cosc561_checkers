@@ -13,30 +13,44 @@ public class MockPlayableSpace implements PlayableSpaceInterface {
 		this.isKing = false;
 	}
 
+	public MockPlayableSpace(int position) {
+		this.isOccupied = false;
+		this.isRed = false;
+		this.isKing = false;
+		this.position = position;
+	}
+
+	@Override
 	public boolean isOccupied() {
 		return isOccupied;
 	}
 
+	@Override
 	public void setOccupied(boolean isOccupied) {
 		this.isOccupied = isOccupied;
 	}
 
+	@Override
 	public boolean isKing() {
 		return isKing;
 	}
 
+	@Override
 	public void setKing(boolean isKing) {
 		this.isKing = isKing;
 	}
 
+	@Override
 	public boolean isRed() {
 		return isRed;
 	}
 
+	@Override
 	public void setRed(boolean isRed) {
 		this.isRed = isRed;
 	}
 
+	@Override
 	public int getPosition() {
 		return this.position;
 	}

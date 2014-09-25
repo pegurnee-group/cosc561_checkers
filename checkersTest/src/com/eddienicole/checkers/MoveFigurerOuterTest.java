@@ -109,10 +109,8 @@ public class MoveFigurerOuterTest extends TestCase {
 			}
 		}
 
-		int length = expectedLegalMoves.size();
+		assertTrue(legalMoves.containsAll(expectedLegalMoves));
+		assertTrue(expectedLegalMoves.containsAll(legalMoves));
 
-		for (int i = 0; i < length; i++) {
-			assertEquals(expectedLegalMoves.get(i), legalMoves.get(i));
-		}
 	}
 }

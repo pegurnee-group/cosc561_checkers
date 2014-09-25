@@ -24,7 +24,25 @@ public class CheckersModelTest extends TestCase {
 		assertSame(expectedSpaces[0], checkersModel.getPlayableSpaces()[0][0]);
 	}
 
-	public void testConstructorPopulatesPlayableSpacesWIthStartingLayout()
+	@Test
+	public void testEmptyConstructorInitializesPositionsCorrectly()
+			throws Exception {
+		CheckersModel checkersModel = new CheckersModel();
+
+		PlayableSpaceInterface[][] playableSpaces = checkersModel
+				.getPlayableSpaces();
+
+		int expectedPosition = 1;
+
+		for (int i = 0; i < playableSpaces.length; i++) {
+			for (int j = 0; j < playableSpaces[i].length; j++) {
+				assertEquals(expectedPosition++,
+						playableSpaces[i][j].getPosition());
+			}
+		}
+	}
+
+	public void testConstructorPopulatesPlayableSpacesWithStartingLayout()
 			throws Exception {
 		CheckersModel checkersModel = new CheckersModel();
 

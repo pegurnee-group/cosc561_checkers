@@ -11,19 +11,23 @@ public class PlayableSpaceTest extends TestCase {
 		boolean isOccupied = false;
 		boolean isRed = false;
 		boolean isKing = false;
+		int position = 1;
 
-		PlayableSpace playableSpace = new PlayableSpace();
+		PlayableSpace playableSpace = new PlayableSpace(position);
 
 		assertSame(isOccupied, playableSpace.isOccupied());
 		assertSame(isRed, playableSpace.isRed());
 		assertSame(isKing, playableSpace.isKing());
+		assertSame(position, playableSpace.getPosition());
 
 	}
 
 	@Test
 	public void testEqualsMethodRecognizesMockPlayableSpace() throws Exception {
-		PlayableSpace realPlayableSpace = new PlayableSpace();
-		MockPlayableSpace mockPlayableSpace = new MockPlayableSpace();
+		int position = 1;
+
+		PlayableSpace realPlayableSpace = new PlayableSpace(position);
+		MockPlayableSpace mockPlayableSpace = new MockPlayableSpace(position);
 
 		assertEquals(realPlayableSpace, mockPlayableSpace);
 
