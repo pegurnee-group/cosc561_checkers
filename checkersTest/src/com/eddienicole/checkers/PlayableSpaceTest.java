@@ -19,4 +19,29 @@ public class PlayableSpaceTest extends TestCase {
 		assertSame(isKing, playableSpace.isKing());
 
 	}
+
+	@Test
+	public void testEqualsMethodRecognizesMockPlayableSpace() throws Exception {
+		PlayableSpace realPlayableSpace = new PlayableSpace();
+		MockPlayableSpace mockPlayableSpace = new MockPlayableSpace();
+
+		assertEquals(realPlayableSpace, mockPlayableSpace);
+
+		realPlayableSpace.setRed(true);
+		mockPlayableSpace.setRed(false);
+
+		assertFalse(realPlayableSpace.equals(mockPlayableSpace));
+
+		mockPlayableSpace.setRed(true);
+
+		realPlayableSpace.setKing(true);
+		realPlayableSpace.setOccupied(true);
+
+		mockPlayableSpace.setKing(true);
+		mockPlayableSpace.setOccupied(true);
+
+		assertEquals(realPlayableSpace, mockPlayableSpace);
+		assertTrue(mockPlayableSpace.equals(realPlayableSpace));
+
+	}
 }

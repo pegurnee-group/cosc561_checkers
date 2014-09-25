@@ -7,6 +7,7 @@ public class PlayableSpace implements PlayableSpaceInterface {
 	private boolean isKing;
 	private int position;
 
+	@Override
 	public int getPosition() {
 		return position;
 	}
@@ -30,14 +31,14 @@ public class PlayableSpace implements PlayableSpaceInterface {
 			return false;
 		if (!(obj instanceof PlayableSpaceInterface))
 			return false;
-		PlayableSpace other = (PlayableSpace) obj;
-		if (isKing != other.isKing)
+		PlayableSpaceInterface other = (PlayableSpaceInterface) obj;
+		if (isKing != other.isKing())
 			return false;
-		if (isOccupied != other.isOccupied)
+		if (isOccupied != other.isOccupied())
 			return false;
-		if (isRed != other.isRed)
+		if (isRed != other.isRed())
 			return false;
-		if (position != other.position)
+		if (position != other.getPosition())
 			return false;
 		return true;
 	}
