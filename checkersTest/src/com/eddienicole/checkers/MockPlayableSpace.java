@@ -61,4 +61,8 @@ public class MockPlayableSpace implements PlayableSpaceInterface {
 		return true;
 	}
 
+	public void setPosition(int position) {
+		this.position = position;
+	}
+
 }
