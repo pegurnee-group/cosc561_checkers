@@ -17,4 +17,6 @@ public interface PlayableSpaceInterface {
 	@Override
 	public boolean equals(Object obj);
 
+	int getPosition();
+
 }

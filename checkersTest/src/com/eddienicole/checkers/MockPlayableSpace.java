@@ -37,6 +37,10 @@ public class MockPlayableSpace implements PlayableSpaceInterface {
 		this.isRed = isRed;
 	}
 
+	public int getPosition() {
+		return this.position;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -45,7 +49,7 @@ public class MockPlayableSpace implements PlayableSpaceInterface {
 			return false;
 		if (!(obj instanceof PlayableSpaceInterface))
 			return false;
-		PlayableSpace other = (PlayableSpace) obj;
+		PlayableSpaceInterface other = (PlayableSpaceInterface) obj;
 		if (isKing != other.isKing())
 			return false;
 		if (isOccupied != other.isOccupied())
