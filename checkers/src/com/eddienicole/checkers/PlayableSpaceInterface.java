@@ -14,4 +14,7 @@ public interface PlayableSpaceInterface {
 
 	void setKing(boolean b);
 
+	@Override
+	public boolean equals(Object obj);
+
 }

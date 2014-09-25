@@ -5,6 +5,7 @@ public class MockPlayableSpace implements PlayableSpaceInterface {
 	boolean isOccupied;
 	boolean isRed;
 	boolean isKing;
+	private int position;
 
 	public MockPlayableSpace() {
 		this.isOccupied = false;
@@ -34,6 +35,26 @@ public class MockPlayableSpace implements PlayableSpaceInterface {
 
 	public void setRed(boolean isRed) {
 		this.isRed = isRed;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof PlayableSpaceInterface))
+			return false;
+		PlayableSpace other = (PlayableSpace) obj;
+		if (isKing != other.isKing())
+			return false;
+		if (isOccupied != other.isOccupied())
+			return false;
+		if (isRed != other.isRed())
+			return false;
+		if (position != other.getPosition())
+			return false;
+		return true;
 	}
 
 }

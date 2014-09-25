@@ -28,7 +28,7 @@ public class PlayableSpace implements PlayableSpaceInterface {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof PlayableSpaceInterface))
 			return false;
 		PlayableSpace other = (PlayableSpace) obj;
 		if (isKing != other.isKing)
