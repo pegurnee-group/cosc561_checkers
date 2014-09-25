@@ -88,17 +88,31 @@ public class MoveFigurerOuterTest extends TestCase {
 		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
 				playableSpaces, itIsRedsTurn);
 
-		assertEquals(6, legalMoves.size());
+		assertEquals(7, legalMoves.size());
 
-		/*
-		 * MockMove expectedLegalMove = new MockMove();
-		 * 
-		 * MockPlayableSpace expectedToSpace = playableSpaces[6][0];
-		 * 
-		 * expectedLegalMove.setFrom(fromSpace);
-		 * expectedLegalMove.setTo(expectedToSpace);
-		 * 
-		 * assertEquals(expectedLegalMove, legalMoves.get(0));
-		 */
+		ArrayList<MoveInterface> expectedLegalMoves = new ArrayList<>();
+
+		for (int i = 0; i < playableSpaces[7].length; i++) {
+			MockPlayableSpace fromSpace = playableSpaces[7][i];
+			MockPlayableSpace toSpace = playableSpaces[6][i];
+
+			MockMove expectedMockMove = new MockMove();
+			expectedMockMove.setFrom(fromSpace);
+			expectedMockMove.setTo(toSpace);
+
+			expectedLegalMoves.add(expectedMockMove);
+
+			if (i > 0) {
+				toSpace = playableSpaces[6][i - 1];
+				expectedMockMove.setTo(toSpace);
+				expectedLegalMoves.add(expectedMockMove);
+			}
+		}
+
+		int length = expectedLegalMoves.size();
+
+		for (int i = 0; i < length; i++) {
+			assertEquals(expectedLegalMoves.get(i), legalMoves.get(i));
+		}
 	}
 }
