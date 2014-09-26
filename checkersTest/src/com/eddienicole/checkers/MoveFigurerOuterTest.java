@@ -110,4 +110,52 @@ public class MoveFigurerOuterTest extends TestCase {
 		assertTrue(expectedLegalMoves.containsAll(legalMoves));
 
 	}
+
+	@Test
+	public void testFigureOutAdjacentMovesTopRowAsBlack() throws Exception {
+
+		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
+
+		for (int i = 0; i < playableSpaces.length; i++) {
+			for (int j = 0; j < playableSpaces[i].length; j++) {
+				playableSpaces[i][j] = new MockPlayableSpace();
+			}
+		}
+
+		for (int i = 0; i < playableSpaces[0].length; i++) {
+			MockPlayableSpace fromSpace = playableSpaces[0][i];
+
+			fromSpace.setState(SpaceState.BLACK);
+		}
+
+		boolean itIsRedsTurn = false;
+
+		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
+				playableSpaces, itIsRedsTurn);
+
+		assertEquals(7, legalMoves.size());
+
+		ArrayList<MoveInterface> expectedLegalMoves = new ArrayList<>();
+
+		for (int column = 0; column < playableSpaces[0].length; column++) {
+			MockPlayableSpace fromSpace = playableSpaces[0][column];
+			MockPlayableSpace toSpace = playableSpaces[1][column];
+
+			MockMove expectedMockMove = new MockMove();
+			expectedMockMove.setFrom(fromSpace);
+			expectedMockMove.setTo(toSpace);
+
+			expectedLegalMoves.add(expectedMockMove);
+
+			if (column < (playableSpaces[0].length - 1)) {
+				toSpace = playableSpaces[1][column + 1];
+				expectedMockMove.setTo(toSpace);
+				expectedLegalMoves.add(expectedMockMove);
+			}
+		}
+
+		assertTrue(legalMoves.containsAll(expectedLegalMoves));
+		assertTrue(expectedLegalMoves.containsAll(legalMoves));
+
+	}
 }
