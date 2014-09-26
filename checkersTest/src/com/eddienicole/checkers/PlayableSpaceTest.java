@@ -7,20 +7,6 @@ import org.junit.Test;
 public class PlayableSpaceTest extends TestCase {
 
 	@Test
-	public void testGetters() throws Exception {
-		SpaceState spaceState = SpaceState.UNOCCUPIED;
-		boolean isKing = false;
-		int position = 1;
-
-		PlayableSpace playableSpace = new PlayableSpace(position);
-
-		assertSame(spaceState, playableSpace.getState());
-		assertSame(isKing, playableSpace.isKing());
-		assertSame(position, playableSpace.getPosition());
-
-	}
-
-	@Test
 	public void testEqualsMethodRecognizesMockPlayableSpace() throws Exception {
 		int position = 1;
 
@@ -42,6 +28,20 @@ public class PlayableSpaceTest extends TestCase {
 
 		assertEquals(realPlayableSpace, mockPlayableSpace);
 		assertTrue(mockPlayableSpace.equals(realPlayableSpace));
+
+	}
+
+	@Test
+	public void testGetters() throws Exception {
+		SpaceState spaceState = SpaceState.UNOCCUPIED;
+		boolean isKing = false;
+		int position = 1;
+
+		PlayableSpace playableSpace = new PlayableSpace(position);
+
+		assertSame(spaceState, playableSpace.getState());
+		assertSame(isKing, playableSpace.isKing());
+		assertSame(position, playableSpace.getPosition());
 
 	}
 }
