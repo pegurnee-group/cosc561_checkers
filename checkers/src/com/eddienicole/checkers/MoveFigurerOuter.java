@@ -100,11 +100,23 @@ public class MoveFigurerOuter {
 									toReturn, from, i, j);
 							checkUpRightIfEven(playableSpaces, toReturn, from,
 									i, j);
+							if (from.isKing()) {
+								checkDownLeftIfEvenRightIfOdd(playableSpaces,
+										toReturn, from, i, j);
+								checkDownRightIfEven(playableSpaces, toReturn,
+										from, i, j);
+							}
 						} else {
 							checkUpLeftIfOdd(playableSpaces, toReturn, from, i,
 									j);
 							checkUpLeftIfEvenRightIfOdd(playableSpaces,
 									toReturn, from, i, j);
+							if (from.isKing()) {
+								checkDownLeftIfOdd(playableSpaces, toReturn,
+										from, i, j);
+								checkDownLeftIfEvenRightIfOdd(playableSpaces,
+										toReturn, from, i, j);
+							}
 						}
 					}
 				}
@@ -119,11 +131,23 @@ public class MoveFigurerOuter {
 									toReturn, from, i, j);
 							checkDownRightIfEven(playableSpaces, toReturn,
 									from, i, j);
+							if (from.isKing()) {
+								checkUpLeftIfEvenRightIfOdd(playableSpaces,
+										toReturn, from, i, j);
+								checkUpRightIfEven(playableSpaces, toReturn,
+										from, i, j);
+							}
 						} else {
 							checkDownLeftIfOdd(playableSpaces, toReturn, from,
 									i, j);
 							checkDownLeftIfEvenRightIfOdd(playableSpaces,
 									toReturn, from, i, j);
+							if (from.isKing()) {
+								checkUpLeftIfOdd(playableSpaces, toReturn,
+										from, i, j);
+								checkUpLeftIfEvenRightIfOdd(playableSpaces,
+										toReturn, from, i, j);
+							}
 						}
 					}
 				}

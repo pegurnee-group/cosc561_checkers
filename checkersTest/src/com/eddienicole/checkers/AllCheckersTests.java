@@ -6,7 +6,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ CheckerboardViewTest.class, CheckersModelTest.class,
-		MoveTest.class, MoveFigurerOuterTest.class, PlayableSpaceTest.class })
+		ControllerTest.class, MoveTest.class, MoveFigurerOuterTest.class,
+		PlayableSpaceTest.class })
 public class AllCheckersTests {
 
 }
