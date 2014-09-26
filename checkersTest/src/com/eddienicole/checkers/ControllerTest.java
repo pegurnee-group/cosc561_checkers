@@ -7,7 +7,7 @@ import org.junit.Test;
 public class ControllerTest {
 	@Test
 	public void testConstructorAndInitalBoard() throws Exception {
-		Controller controller = new Controller();
+		Controller controller = new Controller(null, null);
 
 		String expectedStartingBoard = "   a b c d e f g h\n"
 				+ "  =================\n" + "1 | |b| |b| |b| |b|\n"
