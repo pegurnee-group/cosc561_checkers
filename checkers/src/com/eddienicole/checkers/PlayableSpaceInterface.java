@@ -2,15 +2,11 @@ package com.eddienicole.checkers;
 
 public interface PlayableSpaceInterface {
 
-	boolean isOccupied();
-
-	boolean isRed();
+	SpaceState getState();
 
 	boolean isKing();
 
-	void setOccupied(boolean b);
-
-	void setRed(boolean b);
+	void setState(SpaceState spaceState);
 
 	void setKing(boolean b);
 

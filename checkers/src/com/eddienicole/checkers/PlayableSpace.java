@@ -2,36 +2,24 @@ package com.eddienicole.checkers;
 
 public class PlayableSpace implements PlayableSpaceInterface {
 
-	private boolean isOccupied;
-	private boolean isRed;
+	private SpaceState spaceState;
 	private boolean isKing;
 	private final int position;
 
 	public PlayableSpace(int position) {
-		this.isOccupied = false;
-		this.isRed = false;
+		this.spaceState = SpaceState.UNOCCUPIED;
 		this.isKing = false;
 		this.position = position;
 	}
 
 	@Override
-	public boolean isOccupied() {
-		return isOccupied;
+	public SpaceState getState() {
+		return this.spaceState;
 	}
 
 	@Override
-	public void setOccupied(boolean isOccupied) {
-		this.isOccupied = isOccupied;
-	}
-
-	@Override
-	public boolean isRed() {
-		return this.isRed;
-	}
-
-	@Override
-	public void setRed(boolean isRed) {
-		this.isRed = isRed;
+	public void setState(SpaceState spaceState) {
+		this.spaceState = spaceState;
 	}
 
 	@Override
@@ -54,9 +42,9 @@ public class PlayableSpace implements PlayableSpaceInterface {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (isKing ? 1231 : 1237);
-		result = prime * result + (isOccupied ? 1231 : 1237);
-		result = prime * result + (isRed ? 1231 : 1237);
 		result = prime * result + position;
+		result = prime * result
+				+ ((spaceState == null) ? 0 : spaceState.hashCode());
 		return result;
 	}
 
@@ -71,11 +59,9 @@ public class PlayableSpace implements PlayableSpaceInterface {
 		PlayableSpaceInterface other = (PlayableSpaceInterface) obj;
 		if (isKing != other.isKing())
 			return false;
-		if (isOccupied != other.isOccupied())
-			return false;
-		if (isRed != other.isRed())
-			return false;
 		if (position != other.getPosition())
+			return false;
+		if (spaceState != other.getState())
 			return false;
 		return true;
 	}

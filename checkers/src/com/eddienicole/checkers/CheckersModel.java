@@ -10,11 +10,9 @@ public class CheckersModel {
 			for (int j = 0; j < playableSpaces[i].length; j++) {
 				playableSpaces[i][j] = new PlayableSpace(4 * i + j + 1);
 				if (i < 3) {
-					this.playableSpaces[i][j].setOccupied(true);
-					this.playableSpaces[i][j].setRed(true);
+					this.playableSpaces[i][j].setState(SpaceState.RED);
 				} else if (i > 4) {
-					this.playableSpaces[i][j].setOccupied(true);
-					this.playableSpaces[i][j].setRed(false);
+					this.playableSpaces[i][j].setState(SpaceState.BLACK);
 				}
 			}
 		}

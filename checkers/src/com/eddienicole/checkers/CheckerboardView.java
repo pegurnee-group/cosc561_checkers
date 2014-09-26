@@ -1,5 +1,6 @@
 package com.eddienicole.checkers;
 
+
 public class CheckerboardView {
 
 	public CheckerboardView() {
@@ -31,18 +32,26 @@ public class CheckerboardView {
 	private char drawSpace(PlayableSpaceInterface playableSpace) {
 		char piece;
 
-		if (playableSpace.isOccupied()) {
-			if (playableSpace.isRed()) {
-				piece = 'r';
-			} else {
-				piece = 'b';
-			}
-
-			if (playableSpace.isKing()) {
-				piece -= 32;
-			}
-		} else
+		switch (playableSpace.getState()) {
+		case BLACK:
+			piece = 'b';
+			break;
+		case RED:
+			piece = 'r';
+			break;
+		case UNOCCUPIED:
 			piece = ' ';
+			break;
+		default:
+			piece = ' ';
+			break;
+
+		}
+
+		if (playableSpace.getState() != SpaceState.UNOCCUPIED
+				&& playableSpace.isKing()) {
+			piece -= 32;
+		}
 
 		return piece;
 	}

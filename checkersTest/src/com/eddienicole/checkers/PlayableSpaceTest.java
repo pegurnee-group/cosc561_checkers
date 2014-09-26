@@ -8,15 +8,13 @@ public class PlayableSpaceTest extends TestCase {
 
 	@Test
 	public void testGetters() throws Exception {
-		boolean isOccupied = false;
-		boolean isRed = false;
+		SpaceState spaceState = SpaceState.UNOCCUPIED;
 		boolean isKing = false;
 		int position = 1;
 
 		PlayableSpace playableSpace = new PlayableSpace(position);
 
-		assertSame(isOccupied, playableSpace.isOccupied());
-		assertSame(isRed, playableSpace.isRed());
+		assertSame(spaceState, playableSpace.getState());
 		assertSame(isKing, playableSpace.isKing());
 		assertSame(position, playableSpace.getPosition());
 
@@ -31,18 +29,16 @@ public class PlayableSpaceTest extends TestCase {
 
 		assertEquals(realPlayableSpace, mockPlayableSpace);
 
-		realPlayableSpace.setRed(true);
-		mockPlayableSpace.setRed(false);
+		realPlayableSpace.setState(SpaceState.RED);
+		mockPlayableSpace.setState(SpaceState.BLACK);
 
 		assertFalse(realPlayableSpace.equals(mockPlayableSpace));
 
-		mockPlayableSpace.setRed(true);
+		mockPlayableSpace.setState(SpaceState.RED);
 
 		realPlayableSpace.setKing(true);
-		realPlayableSpace.setOccupied(true);
 
 		mockPlayableSpace.setKing(true);
-		mockPlayableSpace.setOccupied(true);
 
 		assertEquals(realPlayableSpace, mockPlayableSpace);
 		assertTrue(mockPlayableSpace.equals(realPlayableSpace));

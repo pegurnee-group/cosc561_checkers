@@ -16,21 +16,19 @@ public class CheckerboardViewTest extends TestCase {
 			}
 		}
 
-		playableSpaces[0][1].setOccupied(true);
-		playableSpaces[0][1].setRed(true);
+		playableSpaces[0][1].setState(SpaceState.RED);
 
-		playableSpaces[1][0].setOccupied(true);
+		playableSpaces[1][0].setState(SpaceState.BLACK);
 		playableSpaces[1][0].setKing(true);
 
-		playableSpaces[4][1].setOccupied(true);
-		playableSpaces[4][1].setRed(true);
+		playableSpaces[4][1].setState(SpaceState.RED);
 		playableSpaces[4][1].setKing(true);
 
-		playableSpaces[6][3].setOccupied(true);
+		playableSpaces[6][3].setState(SpaceState.BLACK);
 
-		playableSpaces[7][0].setOccupied(true);
+		playableSpaces[7][0].setState(SpaceState.BLACK);
 
-		playableSpaces[7][2].setOccupied(true);
+		playableSpaces[7][2].setState(SpaceState.BLACK);
 
 		CheckerboardView checkerboardView = new CheckerboardView();
 

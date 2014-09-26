@@ -53,14 +53,12 @@ public class CheckersModelTest extends TestCase {
 			for (int j = 0; j < modelSpaces[i].length; j++) {
 				assertTrue(modelSpaces[i][j] instanceof PlayableSpaceInterface);
 				if (i >= 0 && i < 3) {
-					assertTrue(modelSpaces[i][j].isOccupied());
-					assertTrue(modelSpaces[i][j].isRed());
+					assertTrue(modelSpaces[i][j].getState() == SpaceState.RED);
 					assertFalse(modelSpaces[i][j].isKing());
 				} else if (i < 5) {
-					assertFalse(modelSpaces[i][j].isOccupied());
+					assertTrue(modelSpaces[i][j].getState() == SpaceState.UNOCCUPIED);
 				} else {
-					assertTrue(modelSpaces[i][j].isOccupied());
-					assertFalse(modelSpaces[i][j].isRed());
+					assertTrue(modelSpaces[i][j].getState() == SpaceState.BLACK);
 					assertFalse(modelSpaces[i][j].isKing());
 				}
 			}

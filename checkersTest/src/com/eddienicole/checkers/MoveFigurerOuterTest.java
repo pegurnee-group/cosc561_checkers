@@ -21,8 +21,7 @@ public class MoveFigurerOuterTest extends TestCase {
 
 		MockPlayableSpace fromSpace = playableSpaces[7][0];
 
-		fromSpace.setOccupied(true);
-		fromSpace.setRed(true);
+		fromSpace.setState(SpaceState.RED);
 
 		boolean itIsRedsTurn = false;
 
@@ -45,8 +44,7 @@ public class MoveFigurerOuterTest extends TestCase {
 
 		MockPlayableSpace fromSpace = playableSpaces[7][0];
 
-		fromSpace.setOccupied(true);
-		fromSpace.setRed(true);
+		fromSpace.setState(SpaceState.RED);
 
 		boolean itIsRedsTurn = true;
 
@@ -79,8 +77,7 @@ public class MoveFigurerOuterTest extends TestCase {
 		for (int i = 0; i < playableSpaces[7].length; i++) {
 			MockPlayableSpace fromSpace = playableSpaces[7][i];
 
-			fromSpace.setOccupied(true);
-			fromSpace.setRed(true);
+			fromSpace.setState(SpaceState.RED);
 		}
 
 		boolean itIsRedsTurn = true;

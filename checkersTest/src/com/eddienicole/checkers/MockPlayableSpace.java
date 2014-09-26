@@ -2,32 +2,36 @@ package com.eddienicole.checkers;
 
 public class MockPlayableSpace implements PlayableSpaceInterface {
 
-	boolean isOccupied;
-	boolean isRed;
+	SpaceState spaceState;
 	boolean isKing;
 	private int position;
 
 	public MockPlayableSpace() {
-		this.isOccupied = false;
-		this.isRed = false;
+		this.spaceState = SpaceState.UNOCCUPIED;
 		this.isKing = false;
 	}
 
 	public MockPlayableSpace(int position) {
-		this.isOccupied = false;
-		this.isRed = false;
+		this.spaceState = SpaceState.UNOCCUPIED;
 		this.isKing = false;
 		this.position = position;
 	}
 
-	@Override
-	public boolean isOccupied() {
-		return isOccupied;
+	public MockPlayableSpace(SpaceState spaceState, boolean isKing, int position) {
+		super();
+		this.spaceState = spaceState;
+		this.isKing = isKing;
+		this.position = position;
 	}
 
 	@Override
-	public void setOccupied(boolean isOccupied) {
-		this.isOccupied = isOccupied;
+	public SpaceState getState() {
+		return this.spaceState;
+	}
+
+	@Override
+	public void setState(SpaceState spaceState) {
+		this.spaceState = spaceState;
 	}
 
 	@Override
@@ -41,18 +45,23 @@ public class MockPlayableSpace implements PlayableSpaceInterface {
 	}
 
 	@Override
-	public boolean isRed() {
-		return isRed;
-	}
-
-	@Override
-	public void setRed(boolean isRed) {
-		this.isRed = isRed;
-	}
-
-	@Override
 	public int getPosition() {
 		return this.position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (isKing ? 1231 : 1237);
+		result = prime * result + position;
+		result = prime * result
+				+ ((spaceState == null) ? 0 : spaceState.hashCode());
+		return result;
 	}
 
 	@Override
@@ -66,17 +75,11 @@ public class MockPlayableSpace implements PlayableSpaceInterface {
 		PlayableSpaceInterface other = (PlayableSpaceInterface) obj;
 		if (isKing != other.isKing())
 			return false;
-		if (isOccupied != other.isOccupied())
-			return false;
-		if (isRed != other.isRed())
-			return false;
 		if (position != other.getPosition())
 			return false;
+		if (spaceState != other.getState())
+			return false;
 		return true;
-	}
-
-	public void setPosition(int position) {
-		this.position = position;
 	}
 
 }
