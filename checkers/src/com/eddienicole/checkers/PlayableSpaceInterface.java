@@ -3,7 +3,7 @@ package com.eddienicole.checkers;
 public interface PlayableSpaceInterface {
 
 	@Override
-	public boolean equals(Object obj);
+	boolean equals(Object obj);
 
 	int getPosition();
 

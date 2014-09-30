@@ -2,10 +2,10 @@ package com.eddienicole.checkers;
 
 public interface MoveInterface {
 	@Override
-	public boolean equals(Object obj);
+	boolean equals(Object obj);
 
-	public PlayableSpaceInterface getFrom();
+	PlayableSpaceInterface getFrom();
 
-	public PlayableSpaceInterface getTo();
+	PlayableSpaceInterface getTo();
 
 }
