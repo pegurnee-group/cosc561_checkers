@@ -3,33 +3,44 @@ package com.eddienicole.checkers;
 public class PlayTheGame {
 
 	public static void main(String[] args) {
-		boolean red = true;
-		boolean black = false;
-		PlayerInterface redPlayer;
-		PlayerInterface blackPlayer;
+		boolean isRed = true;
+		boolean isBlack = false;
+
+		PlayerInterface playerRed;
+		PlayerInterface playerBlack;
 
 		int kindOfGame = 1;
 		switch (kindOfGame) {
 		case 1:
-			redPlayer = new HumanPlayer(red);
-			blackPlayer = new AI(black);
+			playerRed = new HumanPlayer(isRed);
+			playerBlack = new AI(isBlack);
 			break;
 		case 2:
-			redPlayer = new HumanPlayer(red);
-			blackPlayer = new HumanPlayer(black);
+			playerRed = new HumanPlayer(isRed);
+			playerBlack = new HumanPlayer(isBlack);
 			break;
 		case 3:
-			redPlayer = new AI(red);
-			blackPlayer = new AI(black);
+			playerRed = new AI(isRed);
+			playerBlack = new AI(isBlack);
 			break;
 		default:
-			redPlayer = new HumanPlayer(red);
-			blackPlayer = new AI(black);
+			playerRed = new HumanPlayer(isRed);
+			playerBlack = new AI(isBlack);
 			break;
 		}
-		Controller controller = new Controller(redPlayer, blackPlayer);
+		Controller controller = new Controller(playerRed, playerBlack);
 
 		controller.drawCurrentBoard();
 
+		while (true) {
+			if (!controller.doMove(playerBlack)) {
+				break;
+			}
+			controller.drawCurrentBoard();
+			if (!controller.doMove(playerRed)) {
+				break;
+			}
+			controller.drawCurrentBoard();
+		}
 	}
 }

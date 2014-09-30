@@ -20,7 +20,7 @@ public class ControllerTest {
 	}
 
 	@Test
-	public void testDoMoveAndRedrawBoard() throws Exception {
+	public void testDoMove() throws Exception {
 
 		MockPlayableSpace expectedFromSpace = new MockPlayableSpace(22);
 		MockPlayableSpace expectedToSpace = new MockPlayableSpace(18);
@@ -35,7 +35,7 @@ public class ControllerTest {
 
 		Controller controller = new Controller(null, null);
 
-		controller.doMoveAndRedrawBoard(mockPlayer);
+		controller.doMove(mockPlayer);
 
 		String expectedNewBoard = "   a b c d e f g h\n"
 				+ "  =================\n" + "1 | |b| |b| |b| |b|\n"
@@ -53,7 +53,7 @@ public class ControllerTest {
 
 		mockPlayer.setTheMoveThatThisGuyIsOftenProneToDoing(expectedMove);
 
-		controller.doMoveAndRedrawBoard(mockPlayer);
+		controller.doMove(mockPlayer);
 		expectedNewBoard = "   a b c d e f g h\n" + "  =================\n"
 				+ "1 | |b| |b| |b| |b|\n" + "2 |b| |b| |b| |b| |\n"
 				+ "3 | | | |b| |b| |b|\n" + "4 | | |b| | | | | |\n"
