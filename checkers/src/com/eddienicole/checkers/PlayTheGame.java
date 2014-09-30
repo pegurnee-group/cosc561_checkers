@@ -1,5 +1,7 @@
 package com.eddienicole.checkers;
 
+import java.util.Scanner;
+
 public class PlayTheGame {
 
 	public static void main(String[] args) {
@@ -11,23 +13,31 @@ public class PlayTheGame {
 		PlayerInterface playerRed;
 		PlayerInterface playerBlack;
 
-		int kindOfGame = 2;
+		Scanner keyboard = new Scanner(System.in);
+
+		System.out.println("Select Game Type:");
+		for (int i = 0; i < 4; i++) {
+			System.out.printf("%3d %s vs. %s%n", i + 1, (i % 2) == 0 ? "AI"
+					: "Human", (i % 3) == 0 ? "Human" : "AI");
+		}
+		int kindOfGame = keyboard.nextInt();
+
 		switch (kindOfGame) {
 		case 1:
-			playerRed = new HumanPlayer(isRed);
 			playerBlack = new AI(isBlack);
+			playerRed = new HumanPlayer(isRed);
 			break;
 		case 2:
-			playerRed = new HumanPlayer(isRed);
 			playerBlack = new HumanPlayer(isBlack);
+			playerRed = new AI(isRed);
 			break;
 		case 3:
-			playerRed = new AI(isRed);
 			playerBlack = new AI(isBlack);
+			playerRed = new AI(isRed);
 			break;
 		default:
+			playerBlack = new HumanPlayer(isBlack);
 			playerRed = new HumanPlayer(isRed);
-			playerBlack = new AI(isBlack);
 			break;
 		}
 		Controller controller = new Controller(playerRed, playerBlack);
@@ -48,5 +58,7 @@ public class PlayTheGame {
 		}
 
 		controller.declareConqueringHero(redPlayerHasWon);
+
+		keyboard.close();
 	}
 }
