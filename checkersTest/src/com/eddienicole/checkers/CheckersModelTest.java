@@ -18,20 +18,12 @@ public class CheckersModelTest extends TestCase {
 				assertTrue(modelSpaces[i][j] instanceof PlayableSpaceInterface);
 				if ((i >= 0) && (i < 3)) {
 					assertTrue(modelSpaces[i][j].getState() == SpaceState.BLACK);
-					assertFalse(modelSpaces[i][j].isKing());
 				} else if (i < 5) {
 					assertTrue(modelSpaces[i][j].getState() == SpaceState.UNOCCUPIED);
 				} else {
 					assertTrue(modelSpaces[i][j].getState() == SpaceState.RED);
-					assertFalse(modelSpaces[i][j].isKing());
 				}
-			}
-		}
-
-		MockPlayableSpace[][] mockSpaces = new MockPlayableSpace[8][4];
-		for (int i = 0; i < mockSpaces.length; i++) {
-			for (int j = 0; j < mockSpaces[i].length; j++) {
-				mockSpaces[i][j] = new MockPlayableSpace();
+				assertFalse(modelSpaces[i][j].isKing());
 			}
 		}
 	}
@@ -59,8 +51,9 @@ public class CheckersModelTest extends TestCase {
 		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
 		MockPlayableSpace[] expectedSpaces = new MockPlayableSpace[32];
 
+		int positionToBeAssigned = 1;
 		for (int i = 0; i < expectedSpaces.length; i++) {
-			expectedSpaces[i] = new MockPlayableSpace();
+			expectedSpaces[i] = new MockPlayableSpace(positionToBeAssigned++);
 		}
 		int i = 0;
 		for (int j = 0; j < playableSpaces.length; j++) {

@@ -27,9 +27,11 @@ public class CheckerboardViewTest extends TestCase {
 	public void testDrawBoard() throws Exception {
 		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
 
+		int positionToBeAssigned = 1;
 		for (int i = 0; i < playableSpaces.length; i++) {
 			for (int j = 0; j < playableSpaces[i].length; j++) {
-				playableSpaces[i][j] = new MockPlayableSpace();
+				playableSpaces[i][j] = new MockPlayableSpace(
+						positionToBeAssigned++);
 			}
 		}
 

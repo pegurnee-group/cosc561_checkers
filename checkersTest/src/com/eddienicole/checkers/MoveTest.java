@@ -8,10 +8,10 @@ public class MoveTest extends TestCase {
 
 	@Test
 	public void testEquals() throws Exception {
-		MockPlayableSpace from = new MockPlayableSpace();
-		MockPlayableSpace to = new MockPlayableSpace();
-		Move move1 = new Move(from, to);
-		Move move2 = new Move(from, to);
+		MockPlayableSpace from = new MockPlayableSpace(1);
+		MockPlayableSpace to = new MockPlayableSpace(2);
+		Move move1 = new Move(from, to, false);
+		Move move2 = new Move(from, to, false);
 
 		assertTrue(move1.equals(move2));
 
@@ -27,9 +27,9 @@ public class MoveTest extends TestCase {
 
 	@Test
 	public void testGetters() throws Exception {
-		MockPlayableSpace from = new MockPlayableSpace();
-		MockPlayableSpace to = new MockPlayableSpace();
-		Move move = new Move(from, to);
+		MockPlayableSpace from = new MockPlayableSpace(1);
+		MockPlayableSpace to = new MockPlayableSpace(2);
+		Move move = new Move(from, to, false);
 
 		assertSame(from, move.getFrom());
 		assertSame(to, move.getTo());

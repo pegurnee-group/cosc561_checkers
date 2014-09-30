@@ -8,4 +8,6 @@ public interface MoveInterface {
 
 	PlayableSpaceInterface getTo();
 
+	boolean isJump();
+
 }
