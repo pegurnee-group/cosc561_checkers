@@ -48,17 +48,16 @@ public class Controller implements ActionListener {
 		fromSpace.setKing(false);
 	}
 
-	public String doMoveAndRedrawBoard(PlayerInterface playerWhoseTurnItIs) {
+	public boolean doMove(PlayerInterface playerWhoseTurnItIs) {
 		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
 				this.checkersModel.getPlayableSpaces(),
 				playerWhoseTurnItIs.isRed());
 		if (legalMoves.size() > 0) {
 			this.applyMove(playerWhoseTurnItIs.getMove(legalMoves));
+			return true;
 		} else {
-			// YOU LOOOOSE
+			return false;
 		}
-
-		return this.drawCurrentBoard();
 	}
 
 	public String drawCurrentBoard() {
