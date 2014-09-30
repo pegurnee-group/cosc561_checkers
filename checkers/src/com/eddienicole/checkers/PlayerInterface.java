@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public interface PlayerInterface {
 
-	public MoveInterface getMove(ArrayList<MoveInterface> legalMoves);
+	MoveInterface getMove(ArrayList<MoveInterface> legalMoves);
+
+	boolean isRed();
 
 }
