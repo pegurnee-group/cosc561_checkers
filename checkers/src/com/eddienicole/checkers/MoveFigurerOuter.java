@@ -4,13 +4,91 @@ import java.util.ArrayList;
 
 public class MoveFigurerOuter {
 
+	public static ArrayList<MoveInterface> figure(
+			PlayableSpaceInterface[][] playableSpaces,
+			boolean redIsLookingAtTheBoard) {
+		ArrayList<MoveInterface> toReturn = new ArrayList<>();
+		PlayableSpaceInterface from;
+
+		for (int row = 0; row < playableSpaces.length; row++) {
+			for (int column = 0; column < playableSpaces[row].length; column++) {
+				from = playableSpaces[row][column];
+				if (redIsLookingAtTheBoard && from.getState() == SpaceState.RED) {
+					figureOutMovesForOneRedPiece(playableSpaces, toReturn,
+							from, row, column);
+				} else if (!redIsLookingAtTheBoard
+						&& from.getState() == SpaceState.BLACK) {
+					figureOutMovesForOneBlackPiece(playableSpaces, toReturn,
+							from, row, column);
+				}
+			}
+		}
+
+		return toReturn;
+	}
+
+	private static void figureOutMovesForOneRedPiece(
+			PlayableSpaceInterface[][] playableSpaces,
+			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
+			int row, int column) {
+		if (isEven(row)) {
+			checkUpLeftIfEvenRightIfOdd(playableSpaces, toReturn, from, row,
+					column);
+			checkUpRightIfEven(playableSpaces, toReturn, from, row, column);
+			if (from.isKing()) {
+				checkDownLeftIfEvenRightIfOdd(playableSpaces, toReturn, from,
+						row, column);
+				checkDownRightIfEven(playableSpaces, toReturn, from, row,
+						column);
+			}
+		} else {
+			checkUpLeftIfOdd(playableSpaces, toReturn, from, row, column);
+			checkUpLeftIfEvenRightIfOdd(playableSpaces, toReturn, from, row,
+					column);
+			if (from.isKing()) {
+				checkDownLeftIfOdd(playableSpaces, toReturn, from, row, column);
+				checkDownLeftIfEvenRightIfOdd(playableSpaces, toReturn, from,
+						row, column);
+			}
+		}
+	}
+
+	private static void figureOutMovesForOneBlackPiece(
+			PlayableSpaceInterface[][] playableSpaces,
+			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
+			int row, int column) {
+		if (isEven(row)) {
+			checkDownLeftIfEvenRightIfOdd(playableSpaces, toReturn, from, row,
+					column);
+			checkDownRightIfEven(playableSpaces, toReturn, from, row, column);
+			if (from.isKing()) {
+				checkUpLeftIfEvenRightIfOdd(playableSpaces, toReturn, from,
+						row, column);
+				checkUpRightIfEven(playableSpaces, toReturn, from, row, column);
+			}
+		} else {
+			checkDownLeftIfOdd(playableSpaces, toReturn, from, row, column);
+			checkDownLeftIfEvenRightIfOdd(playableSpaces, toReturn, from, row,
+					column);
+			if (from.isKing()) {
+				checkUpLeftIfOdd(playableSpaces, toReturn, from, row, column);
+				checkUpLeftIfEvenRightIfOdd(playableSpaces, toReturn, from,
+						row, column);
+			}
+		}
+	}
+
+	private static boolean isEven(int row) {
+		return (row % 2) == 0;
+	}
+
 	private static void checkDownLeftIfEvenRightIfOdd(
 			PlayableSpaceInterface[][] playableSpaces,
 			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
-			int i, int j) {
+			int row, int column) {
 		try {
-			if (playableSpaces[i + 1][j].getState() == SpaceState.UNOCCUPIED) {
-				toReturn.add(new Move(from, playableSpaces[i + 1][j]));
+			if (playableSpaces[row + 1][column].getState() == SpaceState.UNOCCUPIED) {
+				toReturn.add(new Move(from, playableSpaces[row + 1][column]));
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
 
@@ -21,10 +99,10 @@ public class MoveFigurerOuter {
 	private static void checkDownLeftIfOdd(
 			PlayableSpaceInterface[][] playableSpaces,
 			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
-			int i, int j) {
+			int row, int column) {
 		try {
-			if (playableSpaces[i + 1][j - 1].getState() == SpaceState.UNOCCUPIED) {
-				toReturn.add(new Move(from, playableSpaces[i + 1][j - 1]));
+			if (playableSpaces[row + 1][column - 1].getState() == SpaceState.UNOCCUPIED) {
+				toReturn.add(new Move(from, playableSpaces[row + 1][column - 1]));
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
 
@@ -35,11 +113,10 @@ public class MoveFigurerOuter {
 	private static void checkDownRightIfEven(
 			PlayableSpaceInterface[][] playableSpaces,
 			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
-			int i, int j) {
+			int row, int column) {
 		try {
-			if (playableSpaces[i + 1][j + 1].getState() == SpaceState.UNOCCUPIED) {
-				toReturn.add(new Move(from, playableSpaces[i + 1][j + 1]));
-			}
+			PlayableSpaceInterface to = playableSpaces[row + 1][column + 1];
+			ifToIsUnoccupiedAddNewMoveToLegalMoves(toReturn, from, to);
 		} catch (ArrayIndexOutOfBoundsException e) {
 
 		}
@@ -49,11 +126,10 @@ public class MoveFigurerOuter {
 	private static void checkUpLeftIfEvenRightIfOdd(
 			PlayableSpaceInterface[][] playableSpaces,
 			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
-			int i, int j) {
+			int row, int column) {
 		try {
-			if (playableSpaces[i - 1][j].getState() == SpaceState.UNOCCUPIED) {
-				toReturn.add(new Move(from, playableSpaces[i - 1][j]));
-			}
+			PlayableSpaceInterface to = playableSpaces[row - 1][column];
+			ifToIsUnoccupiedAddNewMoveToLegalMoves(toReturn, from, to);
 		} catch (ArrayIndexOutOfBoundsException e) {
 
 		}
@@ -62,11 +138,10 @@ public class MoveFigurerOuter {
 	private static void checkUpLeftIfOdd(
 			PlayableSpaceInterface[][] playableSpaces,
 			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
-			int i, int j) {
+			int row, int column) {
 		try {
-			if (playableSpaces[i - 1][j - 1].getState() == SpaceState.UNOCCUPIED) {
-				toReturn.add(new Move(from, playableSpaces[i - 1][j - 1]));
-			}
+			PlayableSpaceInterface to = playableSpaces[row - 1][column - 1];
+			ifToIsUnoccupiedAddNewMoveToLegalMoves(toReturn, from, to);
 		} catch (ArrayIndexOutOfBoundsException e) {
 
 		}
@@ -75,87 +150,21 @@ public class MoveFigurerOuter {
 	private static void checkUpRightIfEven(
 			PlayableSpaceInterface[][] playableSpaces,
 			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
-			int i, int j) {
+			int row, int column) {
 		try {
-			if (playableSpaces[i - 1][j + 1].getState() == SpaceState.UNOCCUPIED) {
-				toReturn.add(new Move(from, playableSpaces[i - 1][j + 1]));
-			}
+			PlayableSpaceInterface to = playableSpaces[row - 1][column + 1];
+			ifToIsUnoccupiedAddNewMoveToLegalMoves(toReturn, from, to);
 		} catch (ArrayIndexOutOfBoundsException e) {
 
 		}
 	}
 
-	public static ArrayList<MoveInterface> figure(
-			PlayableSpaceInterface[][] playableSpaces,
-			boolean isRedLookingAtTheBoard) {
-		ArrayList<MoveInterface> toReturn = new ArrayList<>();
-		PlayableSpaceInterface from;
-		if (isRedLookingAtTheBoard) {
-			for (int i = 0; i < playableSpaces.length; i++) {
-				for (int j = 0; j < playableSpaces[i].length; j++) {
-					from = playableSpaces[i][j];
-					if (from.getState() == SpaceState.RED) {
-						if ((i % 2) == 0) {
-							checkUpLeftIfEvenRightIfOdd(playableSpaces,
-									toReturn, from, i, j);
-							checkUpRightIfEven(playableSpaces, toReturn, from,
-									i, j);
-							if (from.isKing()) {
-								checkDownLeftIfEvenRightIfOdd(playableSpaces,
-										toReturn, from, i, j);
-								checkDownRightIfEven(playableSpaces, toReturn,
-										from, i, j);
-							}
-						} else {
-							checkUpLeftIfOdd(playableSpaces, toReturn, from, i,
-									j);
-							checkUpLeftIfEvenRightIfOdd(playableSpaces,
-									toReturn, from, i, j);
-							if (from.isKing()) {
-								checkDownLeftIfOdd(playableSpaces, toReturn,
-										from, i, j);
-								checkDownLeftIfEvenRightIfOdd(playableSpaces,
-										toReturn, from, i, j);
-							}
-						}
-					}
-				}
-			}
-		} else {
-			for (int i = 0; i < playableSpaces.length; i++) {
-				for (int j = 0; j < playableSpaces[i].length; j++) {
-					from = playableSpaces[i][j];
-					if (from.getState() == SpaceState.BLACK) {
-						if ((i % 2) == 0) {
-							checkDownLeftIfEvenRightIfOdd(playableSpaces,
-									toReturn, from, i, j);
-							checkDownRightIfEven(playableSpaces, toReturn,
-									from, i, j);
-							if (from.isKing()) {
-								checkUpLeftIfEvenRightIfOdd(playableSpaces,
-										toReturn, from, i, j);
-								checkUpRightIfEven(playableSpaces, toReturn,
-										from, i, j);
-							}
-						} else {
-							checkDownLeftIfOdd(playableSpaces, toReturn, from,
-									i, j);
-							checkDownLeftIfEvenRightIfOdd(playableSpaces,
-									toReturn, from, i, j);
-							if (from.isKing()) {
-								checkUpLeftIfOdd(playableSpaces, toReturn,
-										from, i, j);
-								checkUpLeftIfEvenRightIfOdd(playableSpaces,
-										toReturn, from, i, j);
-							}
-						}
-					}
-				}
-			}
+	private static void ifToIsUnoccupiedAddNewMoveToLegalMoves(
+			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
+			PlayableSpaceInterface to) {
+		if (to.getState() == SpaceState.UNOCCUPIED) {
+			toReturn.add(new Move(from, to));
 		}
-
-		return toReturn;
-
 	}
 
 }
