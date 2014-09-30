@@ -50,9 +50,10 @@ public class Controller implements ActionListener {
 		fromSpace.setKing(false);
 	}
 
-	private String doMoveAndRedrawBoard(boolean isRedLookingAtTheBoard) {
+	private String doMoveAndRedrawBoard(PlayerInterface playerWhoseTurnItIs) {
 		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
-				this.checkersModel.getPlayableSpaces(), isRedLookingAtTheBoard);
+				this.checkersModel.getPlayableSpaces(),
+				playerWhoseTurnItIs.isRed());
 		if (legalMoves.size() > 0) {
 			this.redPlayer.getMove(legalMoves);
 		} else {
