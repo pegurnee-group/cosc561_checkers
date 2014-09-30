@@ -22,6 +22,27 @@ public class Controller implements ActionListener {
 
 	}
 
+	public void declareConqueringHero(boolean redPlayerHasWon) {
+		this.checkerboardView.declareConqueringHero(redPlayerHasWon);
+	}
+
+	public boolean doMove(PlayerInterface playerWhoseTurnItIs) {
+		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
+				this.checkersModel.getPlayableSpaces(),
+				playerWhoseTurnItIs.isRed());
+		if (legalMoves.size() > 0) {
+			this.applyMove(playerWhoseTurnItIs.getMove(legalMoves));
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public String drawCurrentBoard() {
+		return this.checkerboardView.drawBoard(this.checkersModel
+				.getPlayableSpaces());
+	}
+
 	private void applyMove(MoveInterface moveToApply) {
 		PlayableSpaceInterface fromSpace = null;
 		PlayableSpaceInterface toSpace = null;
@@ -46,23 +67,6 @@ public class Controller implements ActionListener {
 
 		fromSpace.setState(SpaceState.UNOCCUPIED);
 		fromSpace.setKing(false);
-	}
-
-	public boolean doMove(PlayerInterface playerWhoseTurnItIs) {
-		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
-				this.checkersModel.getPlayableSpaces(),
-				playerWhoseTurnItIs.isRed());
-		if (legalMoves.size() > 0) {
-			this.applyMove(playerWhoseTurnItIs.getMove(legalMoves));
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public String drawCurrentBoard() {
-		return this.checkerboardView.drawBoard(this.checkersModel
-				.getPlayableSpaces());
 	}
 
 }

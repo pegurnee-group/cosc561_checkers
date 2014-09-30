@@ -7,6 +7,23 @@ import org.junit.Test;
 public class CheckerboardViewTest extends TestCase {
 
 	@Test
+	public void testDeclareConqueringHero() throws Exception {
+		CheckerboardView checkerboardView = new CheckerboardView();
+
+		String expectedLossScreen = "Red player has emerged victorious!";
+		boolean victoryForTheRedPlayer = true;
+
+		assertEquals(expectedLossScreen,
+				checkerboardView.declareConqueringHero(victoryForTheRedPlayer));
+
+		victoryForTheRedPlayer = false;
+		expectedLossScreen = "Black player has emerged victorious!";
+
+		assertEquals(expectedLossScreen,
+				checkerboardView.declareConqueringHero(victoryForTheRedPlayer));
+	}
+
+	@Test
 	public void testDrawBoard() throws Exception {
 		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
 

@@ -1,10 +1,16 @@
 package com.eddienicole.checkers;
 
-
 public class CheckerboardView {
 
 	public CheckerboardView() {
 
+	}
+
+	public String declareConqueringHero(boolean redPlayerHasWon) {
+		String output = (redPlayerHasWon ? "Red " : "Black ")
+				+ "player has emerged victorious!";
+		System.out.println(output);
+		return output;
 	}
 
 	public String drawBoard(PlayableSpaceInterface[][] playableSpaces) {
@@ -14,10 +20,11 @@ public class CheckerboardView {
 		for (int i = 0; i < playableSpaces.length; i++) {
 			boardString += "" + (i + 1) + " |";
 			for (int j = 0; j < playableSpaces[i].length; j++) {
-				if (i % 2 == 0) {
-					boardString += " |" + drawSpace(playableSpaces[i][j]) + "|";
+				if ((i % 2) == 0) {
+					boardString += " |" + this.drawSpace(playableSpaces[i][j])
+							+ "|";
 				} else {
-					boardString += drawSpace(playableSpaces[i][j]) + "| |";
+					boardString += this.drawSpace(playableSpaces[i][j]) + "| |";
 				}
 			}
 			boardString += "\n";
@@ -48,7 +55,7 @@ public class CheckerboardView {
 
 		}
 
-		if (playableSpace.getState() != SpaceState.UNOCCUPIED
+		if ((playableSpace.getState() != SpaceState.UNOCCUPIED)
 				&& playableSpace.isKing()) {
 			piece -= 32;
 		}

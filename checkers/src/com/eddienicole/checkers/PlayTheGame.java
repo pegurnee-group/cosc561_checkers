@@ -6,10 +6,12 @@ public class PlayTheGame {
 		boolean isRed = true;
 		boolean isBlack = false;
 
+		boolean redPlayerHasWon;
+
 		PlayerInterface playerRed;
 		PlayerInterface playerBlack;
 
-		int kindOfGame = 1;
+		int kindOfGame = 2;
 		switch (kindOfGame) {
 		case 1:
 			playerRed = new HumanPlayer(isRed);
@@ -34,13 +36,17 @@ public class PlayTheGame {
 
 		while (true) {
 			if (!controller.doMove(playerBlack)) {
+				redPlayerHasWon = true;
 				break;
 			}
 			controller.drawCurrentBoard();
 			if (!controller.doMove(playerRed)) {
+				redPlayerHasWon = false;
 				break;
 			}
 			controller.drawCurrentBoard();
 		}
+
+		controller.declareConqueringHero(redPlayerHasWon);
 	}
 }
