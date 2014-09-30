@@ -2,12 +2,15 @@ package com.eddienicole.checkers;
 
 public class Move implements MoveInterface {
 
-	private final PlayableSpaceInterface from;
-	private final PlayableSpaceInterface to;
+	private final boolean jump;
+	private final PlayableSpaceInterface spaceFrom;
+	private final PlayableSpaceInterface spaceTo;
 
-	public Move(PlayableSpaceInterface from, PlayableSpaceInterface to) {
-		this.from = from;
-		this.to = to;
+	public Move(PlayableSpaceInterface from, PlayableSpaceInterface to,
+			boolean jump) {
+		this.spaceFrom = from;
+		this.spaceTo = to;
+		this.jump = jump;
 	}
 
 	@Override
@@ -22,18 +25,21 @@ public class Move implements MoveInterface {
 			return false;
 		}
 		MoveInterface other = (MoveInterface) obj;
-		if (this.from == null) {
+		if (this.jump != other.isJump()) {
+			return false;
+		}
+		if (this.spaceFrom == null) {
 			if (other.getFrom() != null) {
 				return false;
 			}
-		} else if (!this.from.equals(other.getFrom())) {
+		} else if (!this.spaceFrom.equals(other.getFrom())) {
 			return false;
 		}
-		if (this.to == null) {
+		if (this.spaceTo == null) {
 			if (other.getTo() != null) {
 				return false;
 			}
-		} else if (!this.to.equals(other.getTo())) {
+		} else if (!this.spaceTo.equals(other.getTo())) {
 			return false;
 		}
 		return true;
@@ -41,12 +47,12 @@ public class Move implements MoveInterface {
 
 	@Override
 	public PlayableSpaceInterface getFrom() {
-		return this.from;
+		return this.spaceFrom;
 	}
 
 	@Override
 	public PlayableSpaceInterface getTo() {
-		return this.to;
+		return this.spaceTo;
 	}
 
 	@Override
@@ -54,10 +60,15 @@ public class Move implements MoveInterface {
 		final int prime = 31;
 		int result = 1;
 		result = (prime * result)
-				+ ((this.from == null) ? 0 : this.from.hashCode());
+				+ ((this.spaceFrom == null) ? 0 : this.spaceFrom.hashCode());
 		result = (prime * result)
-				+ ((this.to == null) ? 0 : this.to.hashCode());
+				+ ((this.spaceTo == null) ? 0 : this.spaceTo.hashCode());
 		return result;
+	}
+
+	@Override
+	public boolean isJump() {
+		return this.jump;
 	}
 
 }

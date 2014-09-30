@@ -13,9 +13,11 @@ public class MoveFigurerOuterTest extends TestCase {
 
 		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
 
+		int positionToBeAssigned = 1;
 		for (int i = 0; i < playableSpaces.length; i++) {
 			for (int j = 0; j < playableSpaces[i].length; j++) {
-				playableSpaces[i][j] = new MockPlayableSpace();
+				playableSpaces[i][j] = new MockPlayableSpace(
+						positionToBeAssigned++);
 			}
 		}
 
@@ -36,9 +38,11 @@ public class MoveFigurerOuterTest extends TestCase {
 
 		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
 
+		int positionToBeAssigned = 1;
 		for (int i = 0; i < playableSpaces.length; i++) {
 			for (int j = 0; j < playableSpaces[i].length; j++) {
-				playableSpaces[i][j] = new MockPlayableSpace();
+				playableSpaces[i][j] = new MockPlayableSpace(
+						positionToBeAssigned++);
 			}
 		}
 
@@ -68,9 +72,11 @@ public class MoveFigurerOuterTest extends TestCase {
 
 		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
 
+		int positionToBeAssigned = 1;
 		for (int i = 0; i < playableSpaces.length; i++) {
 			for (int j = 0; j < playableSpaces[i].length; j++) {
-				playableSpaces[i][j] = new MockPlayableSpace();
+				playableSpaces[i][j] = new MockPlayableSpace(
+						positionToBeAssigned++);
 			}
 		}
 
@@ -101,14 +107,17 @@ public class MoveFigurerOuterTest extends TestCase {
 
 			if (i > 0) {
 				toSpace = playableSpaces[6][i - 1];
-				expectedMockMove.setTo(toSpace);
-				expectedLegalMoves.add(expectedMockMove);
+				MockMove expectedAnotherMove = new MockMove();
+				expectedAnotherMove.setFrom(fromSpace);
+				expectedAnotherMove.setTo(toSpace);
+				expectedLegalMoves.add(expectedAnotherMove);
 			}
 		}
 
-		assertTrue(legalMoves.containsAll(expectedLegalMoves));
-		assertTrue(expectedLegalMoves.containsAll(legalMoves));
+		assertEquals(expectedLegalMoves.size(), legalMoves.size());
 
+		assertTrue(expectedLegalMoves.containsAll(legalMoves));
+		assertTrue(legalMoves.containsAll(expectedLegalMoves));
 	}
 
 	@Test
@@ -116,9 +125,11 @@ public class MoveFigurerOuterTest extends TestCase {
 
 		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
 
+		int positionToBeAssigned = 1;
 		for (int i = 0; i < playableSpaces.length; i++) {
 			for (int j = 0; j < playableSpaces[i].length; j++) {
-				playableSpaces[i][j] = new MockPlayableSpace();
+				playableSpaces[i][j] = new MockPlayableSpace(
+						positionToBeAssigned++);
 			}
 		}
 
@@ -149,8 +160,10 @@ public class MoveFigurerOuterTest extends TestCase {
 
 			if (column < (playableSpaces[0].length - 1)) {
 				toSpace = playableSpaces[1][column + 1];
-				expectedMockMove.setTo(toSpace);
-				expectedLegalMoves.add(expectedMockMove);
+				MockMove expectedAnotherMove = new MockMove();
+				expectedAnotherMove.setFrom(fromSpace);
+				expectedAnotherMove.setTo(toSpace);
+				expectedLegalMoves.add(expectedAnotherMove);
 			}
 		}
 
@@ -163,9 +176,11 @@ public class MoveFigurerOuterTest extends TestCase {
 	public void testFigureOutRedsGottaKingInTheMiddle() throws Exception {
 		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
 
+		int positionToBeAssigned = 1;
 		for (int i = 0; i < playableSpaces.length; i++) {
 			for (int j = 0; j < playableSpaces[i].length; j++) {
-				playableSpaces[i][j] = new MockPlayableSpace();
+				playableSpaces[i][j] = new MockPlayableSpace(
+						positionToBeAssigned++);
 			}
 		}
 
@@ -185,21 +200,19 @@ public class MoveFigurerOuterTest extends TestCase {
 		MockMove expectedMockMove = new MockMove();
 		expectedMockMove.setFrom(theRedKing);
 
+		boolean isAJump = false;
+
 		MockPlayableSpace toSpace1 = playableSpaces[2][3];
-		expectedMockMove.setTo(toSpace1);
-		expectedLegalMoves.add(expectedMockMove);
+		expectedLegalMoves.add(new MockMove(theRedKing, toSpace1, isAJump));
 
 		MockPlayableSpace toSpace2 = playableSpaces[4][3];
-		expectedMockMove.setTo(toSpace2);
-		expectedLegalMoves.add(expectedMockMove);
+		expectedLegalMoves.add(new MockMove(theRedKing, toSpace2, isAJump));
 
 		MockPlayableSpace toSpace3 = playableSpaces[2][2];
-		expectedMockMove.setTo(toSpace3);
-		expectedLegalMoves.add(expectedMockMove);
+		expectedLegalMoves.add(new MockMove(theRedKing, toSpace3, isAJump));
 
 		MockPlayableSpace toSpace4 = playableSpaces[4][2];
-		expectedMockMove.setTo(toSpace4);
-		expectedLegalMoves.add(expectedMockMove);
+		expectedLegalMoves.add(new MockMove(theRedKing, toSpace4, isAJump));
 
 		assertTrue(legalMoves.containsAll(expectedLegalMoves));
 		assertTrue(expectedLegalMoves.containsAll(legalMoves));
@@ -214,9 +227,11 @@ public class MoveFigurerOuterTest extends TestCase {
 	public void testRedsCannotMoveIntoItself() throws Exception {
 		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
 
+		int positionToBeAssigned = 1;
 		for (int i = 0; i < playableSpaces.length; i++) {
 			for (int j = 0; j < playableSpaces[i].length; j++) {
-				playableSpaces[i][j] = new MockPlayableSpace();
+				playableSpaces[i][j] = new MockPlayableSpace(
+						positionToBeAssigned++);
 			}
 		}
 
@@ -238,21 +253,21 @@ public class MoveFigurerOuterTest extends TestCase {
 		MockMove expectedMockMove = new MockMove();
 		expectedMockMove.setFrom(firstPiece);
 
-		MockPlayableSpace firstPieceOnlyTarget = playableSpaces[1][3];
-		expectedMockMove.setTo(firstPieceOnlyTarget);
-		expectedLegalMoves.add(expectedMockMove);
+		boolean isAJump = false;
 
-		expectedMockMove.setFrom(secondPiece);
+		MockPlayableSpace firstPieceOnlyTarget = playableSpaces[1][3];
+		expectedLegalMoves.add(new MockMove(firstPiece, firstPieceOnlyTarget,
+				isAJump));
+
 		MockPlayableSpace secondPieceFirstTarget = playableSpaces[0][2];
-		expectedMockMove.setTo(secondPieceFirstTarget);
-		expectedLegalMoves.add(expectedMockMove);
+		expectedLegalMoves.add(new MockMove(secondPiece,
+				secondPieceFirstTarget, isAJump));
 
 		MockPlayableSpace secondPieceSecondTarget = playableSpaces[0][1];
-		expectedMockMove.setTo(secondPieceSecondTarget);
-		expectedLegalMoves.add(expectedMockMove);
+		expectedLegalMoves.add(new MockMove(secondPiece,
+				secondPieceSecondTarget, isAJump));
 
 		assertTrue(legalMoves.containsAll(expectedLegalMoves));
 		assertTrue(expectedLegalMoves.containsAll(legalMoves));
-
 	}
 }
