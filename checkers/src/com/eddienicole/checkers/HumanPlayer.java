@@ -20,7 +20,7 @@ public class HumanPlayer implements PlayerInterface {
 			System.out.println("Legal moves:");
 			int numberOfLegalMoves = legalMoves.size();
 			for (int index = 0; index < numberOfLegalMoves; index++) {
-				System.out.printf("%3d %2d-%2d\n", index + 1,
+				System.out.printf("%3d %2d-%-2d\n", index + 1,
 						legalMoves.get(index).getFrom().getPosition(),
 						legalMoves.get(index).getTo().getPosition());
 			}
