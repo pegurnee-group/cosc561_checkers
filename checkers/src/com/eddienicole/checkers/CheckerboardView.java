@@ -15,10 +15,10 @@ public class CheckerboardView {
 
 	public String drawBoard(PlayableSpaceInterface[][] playableSpaces) {
 
-		String boardString = "   a b c d e f g h\n" + "  =================\n";
+		String boardString = "   0 0 1 1 2 2 3 3\n" + "  =================\n";
 
 		for (int i = 0; i < playableSpaces.length; i++) {
-			boardString += "" + (i + 1) + " |";
+			boardString += "" + (i) + " |";
 			for (int j = 0; j < playableSpaces[i].length; j++) {
 				if ((i % 2) == 0) {
 					boardString += " |" + this.drawSpace(playableSpaces[i][j])
