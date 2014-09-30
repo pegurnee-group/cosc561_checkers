@@ -15,12 +15,24 @@ public class MoveFigurerOuter {
 				from = playableSpaces[row][column];
 				if (redIsLookingAtTheBoard
 						&& (from.getState() == SpaceState.RED)) {
-					figureOutMovesForOneRedPiece(playableSpaces, toReturn,
-							from, row, column);
+					PlayableSpaceInterface[] neighbors = findNeighbors(
+							playableSpaces, row, column, isEven(row));
+					for (int i = 0; i < neighbors.length; i++) {
+						if ((neighbors[i] != null)
+								&& (neighbors[i].getState() == SpaceState.UNOCCUPIED)) {
+							toReturn.add(new Move(from, neighbors[i], false));
+						}
+					}
 				} else if (!redIsLookingAtTheBoard
 						&& (from.getState() == SpaceState.BLACK)) {
-					figureOutMovesForOneBlackPiece(playableSpaces, toReturn,
-							from, row, column);
+					PlayableSpaceInterface[] neighbors = findNeighbors(
+							playableSpaces, row, column, isEven(row));
+					for (int i = 0; i < neighbors.length; i++) {
+						if ((neighbors[i] != null)
+								&& (neighbors[i].getState() == SpaceState.UNOCCUPIED)) {
+							toReturn.add(new Move(from, neighbors[i], false));
+						}
+					}
 				}
 			}
 		}
@@ -28,138 +40,60 @@ public class MoveFigurerOuter {
 		return toReturn;
 	}
 
-	private static void checkDownLeftIfEvenDownRightIfOdd(
-			PlayableSpaceInterface[][] playableSpaces,
-			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
-			int row, int column) {
+	private static PlayableSpaceInterface findAnyOldSpace(
+			PlayableSpaceInterface[][] playableSpaces, int targetRow,
+			int targetColumn) {
 		try {
-			PlayableSpaceInterface to = playableSpaces[row + 1][column];
-			ifToIsUnoccupiedAddNewMoveToLegalMoves(toReturn, from, to);
+			return playableSpaces[targetRow][targetColumn];
 		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-
-	}
-
-	private static void checkDownLeftIfOdd(
-			PlayableSpaceInterface[][] playableSpaces,
-			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
-			int row, int column) {
-		try {
-			PlayableSpaceInterface to = playableSpaces[row + 1][column - 1];
-			if (!ifToIsUnoccupiedAddNewMoveToLegalMoves(toReturn, from, to)) {
-				to = playableSpaces[row + 2][column - 1];
-			}
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-
-	}
-
-	private static void checkDownRightIfEven(
-			PlayableSpaceInterface[][] playableSpaces,
-			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
-			int row, int column) {
-		try {
-			PlayableSpaceInterface to = playableSpaces[row + 1][column + 1];
-			ifToIsUnoccupiedAddNewMoveToLegalMoves(toReturn, from, to);
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
-
-	}
-
-	private static void checkUpLeftIfEvenUpRightIfOdd(
-			PlayableSpaceInterface[][] playableSpaces,
-			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
-			int row, int column) {
-		try {
-			PlayableSpaceInterface to = playableSpaces[row - 1][column];
-			ifToIsUnoccupiedAddNewMoveToLegalMoves(toReturn, from, to);
-		} catch (ArrayIndexOutOfBoundsException e) {
-
+			return null;
 		}
 	}
 
-	private static void checkUpLeftIfOdd(
-			PlayableSpaceInterface[][] playableSpaces,
-			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
-			int row, int column) {
-		try {
-			PlayableSpaceInterface to = playableSpaces[row - 1][column - 1];
-			ifToIsUnoccupiedAddNewMoveToLegalMoves(toReturn, from, to);
-		} catch (ArrayIndexOutOfBoundsException e) {
+	private static PlayableSpaceInterface[] findNeighbors(
+			PlayableSpaceInterface[][] playableSpaces, int row, int column,
+			boolean onAnEvenRow) {
+		PlayableSpaceInterface[] toReturn = new PlayableSpaceInterface[4];
+		boolean red = playableSpaces[row][column].getState() == SpaceState.RED;
+		boolean king = playableSpaces[row][column].isKing();
 
-		}
+		toReturn[0] = (red || king) ? findNeighborsUpperLeft(playableSpaces,
+				row, column, onAnEvenRow) : null;
+		toReturn[1] = (red || king) ? findNeighborsUpperRight(playableSpaces,
+				row, column, onAnEvenRow) : null;
+		toReturn[2] = (!red || king) ? findNeighborsLowerRight(playableSpaces,
+				row, column, onAnEvenRow) : null;
+		toReturn[3] = (!red || king) ? findNeighborsLowerLeft(playableSpaces,
+				row, column, onAnEvenRow) : null;
+		return toReturn;
 	}
 
-	private static void checkUpRightIfEven(
-			PlayableSpaceInterface[][] playableSpaces,
-			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
-			int row, int column) {
-		try {
-			PlayableSpaceInterface to = playableSpaces[row - 1][column + 1];
-			ifToIsUnoccupiedAddNewMoveToLegalMoves(toReturn, from, to);
-		} catch (ArrayIndexOutOfBoundsException e) {
-
-		}
+	private static PlayableSpaceInterface findNeighborsLowerLeft(
+			PlayableSpaceInterface[][] playableSpaces, int row, int column,
+			boolean onAnEvenRow) {
+		return findAnyOldSpace(playableSpaces, row + 1, onAnEvenRow ? column
+				: column - 1);
 	}
 
-	private static void figureOutMovesForOneBlackPiece(
-			PlayableSpaceInterface[][] playableSpaces,
-			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
-			int row, int column) {
-		checkDownLeftIfEvenDownRightIfOdd(playableSpaces, toReturn, from, row,
-				column);
-		if (isEven(row)) {
-			checkDownRightIfEven(playableSpaces, toReturn, from, row, column);
-			if (from.isKing()) {
-				checkUpLeftIfEvenUpRightIfOdd(playableSpaces, toReturn, from,
-						row, column);
-				checkUpRightIfEven(playableSpaces, toReturn, from, row, column);
-			}
-		} else {
-			checkDownLeftIfOdd(playableSpaces, toReturn, from, row, column);
-			if (from.isKing()) {
-				checkUpLeftIfOdd(playableSpaces, toReturn, from, row, column);
-				checkUpLeftIfEvenUpRightIfOdd(playableSpaces, toReturn, from,
-						row, column);
-			}
-		}
+	private static PlayableSpaceInterface findNeighborsLowerRight(
+			PlayableSpaceInterface[][] playableSpaces, int row, int column,
+			boolean onAnEvenRow) {
+		return findAnyOldSpace(playableSpaces, row + 1,
+				onAnEvenRow ? column + 1 : column);
 	}
 
-	private static void figureOutMovesForOneRedPiece(
-			PlayableSpaceInterface[][] playableSpaces,
-			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
-			int row, int column) {
-		checkUpLeftIfEvenUpRightIfOdd(playableSpaces, toReturn, from, row,
-				column);
-		if (isEven(row)) {
-			checkUpRightIfEven(playableSpaces, toReturn, from, row, column);
-			if (from.isKing()) {
-				checkDownLeftIfEvenDownRightIfOdd(playableSpaces, toReturn,
-						from, row, column);
-				checkDownRightIfEven(playableSpaces, toReturn, from, row,
-						column);
-			}
-		} else {
-			checkUpLeftIfOdd(playableSpaces, toReturn, from, row, column);
-			if (from.isKing()) {
-				checkDownLeftIfOdd(playableSpaces, toReturn, from, row, column);
-				checkDownLeftIfEvenDownRightIfOdd(playableSpaces, toReturn,
-						from, row, column);
-			}
-		}
+	private static PlayableSpaceInterface findNeighborsUpperLeft(
+			PlayableSpaceInterface[][] playableSpaces, int row, int column,
+			boolean onAnEvenRow) {
+		return findAnyOldSpace(playableSpaces, row - 1, onAnEvenRow ? column
+				: column - 1);
 	}
 
-	private static boolean ifToIsUnoccupiedAddNewMoveToLegalMoves(
-			ArrayList<MoveInterface> toReturn, PlayableSpaceInterface from,
-			PlayableSpaceInterface to) {
-		if (to.getState() == SpaceState.UNOCCUPIED) {
-			toReturn.add(new Move(from, to, false));
-			return true;
-		}
-		return false;
+	private static PlayableSpaceInterface findNeighborsUpperRight(
+			PlayableSpaceInterface[][] playableSpaces, int row, int column,
+			boolean onAnEvenRow) {
+		return findAnyOldSpace(playableSpaces, row - 1,
+				onAnEvenRow ? column + 1 : column);
 	}
 
 	private static boolean isEven(int row) {
