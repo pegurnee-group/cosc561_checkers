@@ -5,18 +5,16 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Controller implements ActionListener {
-
-	private AI ai;
-	private final PlayerInterface blackPlayer;
 	private final CheckerboardView checkerboardView;
 	private final CheckersModel checkersModel;
-	private final PlayerInterface redPlayer;
+	private final PlayerInterface playerBlack;
+	private final PlayerInterface playerRed;
 
 	public Controller(PlayerInterface redPlayer, PlayerInterface blackPlayer) {
 		this.checkersModel = new CheckersModel();
 		this.checkerboardView = new CheckerboardView();
-		this.redPlayer = redPlayer;
-		this.blackPlayer = blackPlayer;
+		this.playerRed = redPlayer;
+		this.playerBlack = blackPlayer;
 	}
 
 	@Override
@@ -24,7 +22,7 @@ public class Controller implements ActionListener {
 
 	}
 
-	public void applyMove(MoveInterface moveToApply) {
+	private void applyMove(MoveInterface moveToApply) {
 		PlayableSpaceInterface fromSpace = null;
 		PlayableSpaceInterface toSpace = null;
 
@@ -50,12 +48,12 @@ public class Controller implements ActionListener {
 		fromSpace.setKing(false);
 	}
 
-	private String doMoveAndRedrawBoard(PlayerInterface playerWhoseTurnItIs) {
+	public String doMoveAndRedrawBoard(PlayerInterface playerWhoseTurnItIs) {
 		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
 				this.checkersModel.getPlayableSpaces(),
 				playerWhoseTurnItIs.isRed());
 		if (legalMoves.size() > 0) {
-			this.redPlayer.getMove(legalMoves);
+			this.applyMove(playerWhoseTurnItIs.getMove(legalMoves));
 		} else {
 			// YOU LOOOOSE
 		}
