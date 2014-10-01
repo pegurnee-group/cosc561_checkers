@@ -35,6 +35,17 @@ public class Controller implements ActionListener {
 			MoveInterface move = playerWhoseTurnItIs.getMove(legalMoves);
 			this.applyMove(move);
 			this.kingMe(move, playerWhoseTurnItIs.isRed());
+			if (move.isJump()) {
+				while (MoveFigurerOuter.hasMoreJumps(
+						this.checkersModel.getPlayableSpaces(), move)) {
+					this.drawCurrentBoard();
+					move = playerWhoseTurnItIs.getMove(MoveFigurerOuter.figure(
+							this.checkersModel.getPlayableSpaces(),
+							playerWhoseTurnItIs.isRed(), move.getTo()));
+					this.applyMove(move);
+					this.kingMe(move, playerWhoseTurnItIs.isRed());
+				}
+			}
 			return true;
 		} else {
 			return false;

@@ -33,12 +33,77 @@ public class MoveFigurerOuter {
 		return toReturn;
 	}
 
+	public static ArrayList<MoveInterface> figure(
+			PlayableSpaceInterface[][] playableSpaces, boolean red,
+			PlayableSpaceInterface playableSpaceInterface) {
+		ArrayList<MoveInterface> toReturn = new ArrayList<>();
+		toReturn.addAll(findPotentialMoves(playableSpaces,
+				playableSpaceInterface,
+				(playableSpaceInterface.getPosition() - 1) / 4,
+				(playableSpaceInterface.getPosition() - 1) % 4));
+
+		if (jumpHasOccurred) {
+			removeNonJumpMoves(toReturn);
+		}
+
+		jumpHasOccurred = false;
+		return toReturn;
+	}
+
+	public static boolean hasMoreJumps(
+			PlayableSpaceInterface[][] playableSpaces, MoveInterface move) {
+		PlayableSpaceInterface startPoint = move.getTo();
+		int column = (startPoint.getPosition() - 1) % 4;
+		int row = (startPoint.getPosition() - 1) / 4;
+
+		System.out.println("row " + row + "\ncol " + column);
+		PlayableSpaceInterface[] possibleMoves = findNeighbors(playableSpaces,
+				row, column, isEven(row));
+		// PlayableSpaceInterface[] possibleJumps =
+		// findPotentialJumps(playableSpaces, row, column);
+		// boolean moreJump = false;
+		for (int i = 0; i < possibleMoves.length; i++) {
+			if ((possibleMoves[i] != null)
+					&& (possibleMoves[i].getState() != SpaceState.UNOCCUPIED)
+					&& (possibleMoves[i].getState() != startPoint.getState())) {
+				PlayableSpaceInterface aPotentialJump = findPotentialJump(
+						playableSpaces, row, column, i);
+				if ((aPotentialJump != null)
+						&& (aPotentialJump.getState() == SpaceState.UNOCCUPIED)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	private static PlayableSpaceInterface findAnyOldSpace(
 			PlayableSpaceInterface[][] playableSpaces, int targetRow,
 			int targetColumn) {
 		try {
 			return playableSpaces[targetRow][targetColumn];
 		} catch (ArrayIndexOutOfBoundsException e) {
+			return null;
+		}
+	}
+
+	private static PlayableSpaceInterface findNeighbor(
+			PlayableSpaceInterface[][] playableSpaces, int row, int column,
+			boolean onAnEvenRow, int location) {
+		switch (location) {
+		case 0:
+			return isSpaceKingOrRed(playableSpaces[row][column]) ? findNeighborsUpperLeft(
+					playableSpaces, row, column, onAnEvenRow) : null;
+		case 1:
+			return isSpaceKingOrRed(playableSpaces[row][column]) ? findNeighborsUpperRight(
+					playableSpaces, row, column, onAnEvenRow) : null;
+		case 2:
+			return isSpaceKingOrBlack(playableSpaces[row][column]) ? findNeighborsLowerRight(
+					playableSpaces, row, column, onAnEvenRow) : null;
+		case 3:
+			return isSpaceKingOrBlack(playableSpaces[row][column]) ? findNeighborsLowerLeft(
+					playableSpaces, row, column, onAnEvenRow) : null;
+		default:
 			return null;
 		}
 	}
