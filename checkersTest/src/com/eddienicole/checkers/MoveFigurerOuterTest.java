@@ -223,41 +223,44 @@ public class MoveFigurerOuterTest extends TestCase {
 		assertEquals(0, legalMoves.size());
 	}
 
-	/*
-	 * @Test public void testJumpsForRedInTheMiddle() throws Exception {
-	 * MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4]; int
-	 * positionToBeAssigned = 1; for (int row = 0; row < playableSpaces.length;
-	 * row++) { for (int column = 0; column < playableSpaces[row].length;
-	 * column++) { playableSpaces[row][column] = new MockPlayableSpace(
-	 * positionToBeAssigned++); } }
-	 * 
-	 * MockPlayableSpace firstPiece = playableSpaces[2][1]; MockPlayableSpace
-	 * secondPiece = playableSpaces[1][2]; MockPlayableSpace destination =
-	 * playableSpaces[0][2];
-	 * 
-	 * firstPiece.setState(SpaceState.RED);
-	 * secondPiece.setState(SpaceState.BLACK);
-	 * destination.setState(SpaceState.UNOCCUPIED);
-	 * 
-	 * boolean itIsRedsTurn = true;
-	 * 
-	 * ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
-	 * playableSpaces, itIsRedsTurn);
-	 * 
-	 * assertEquals(1, legalMoves.size());
-	 * 
-	 * ArrayList<MoveInterface> expectedLegalMoves = new ArrayList<>();
-	 * 
-	 * MockMove expectedMockMove = new MockMove();
-	 * expectedMockMove.setFrom(firstPiece);
-	 * expectedMockMove.setTo(destination); expectedMockMove.setJump(true);
-	 * expectedLegalMoves.add(expectedMockMove);
-	 * 
-	 * assertTrue(legalMoves.containsAll(expectedLegalMoves));
-	 * assertTrue(expectedLegalMoves.containsAll(legalMoves));
-	 * 
-	 * }
-	 */
+	@Test
+	public void testJumpsForRedInTheMiddle() throws Exception {
+		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
+		int positionToBeAssigned = 1;
+		for (int row = 0; row < playableSpaces.length; row++) {
+			for (int column = 0; column < playableSpaces[row].length; column++) {
+				playableSpaces[row][column] = new MockPlayableSpace(
+						positionToBeAssigned++);
+			}
+		}
+
+		MockPlayableSpace firstPiece = playableSpaces[2][1];
+		MockPlayableSpace secondPiece = playableSpaces[1][2];
+		MockPlayableSpace destination = playableSpaces[0][2];
+
+		firstPiece.setState(SpaceState.RED);
+		secondPiece.setState(SpaceState.BLACK);
+		destination.setState(SpaceState.UNOCCUPIED);
+
+		boolean itIsRedsTurn = true;
+
+		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
+				playableSpaces, itIsRedsTurn);
+
+		assertEquals(1, legalMoves.size());
+
+		ArrayList<MoveInterface> expectedLegalMoves = new ArrayList<>();
+
+		MockMove expectedMockMove = new MockMove();
+		expectedMockMove.setFrom(firstPiece);
+		expectedMockMove.setTo(destination);
+		expectedMockMove.setJump(true);
+		expectedLegalMoves.add(expectedMockMove);
+
+		assertTrue(legalMoves.containsAll(expectedLegalMoves));
+		assertTrue(expectedLegalMoves.containsAll(legalMoves));
+
+	}
 
 	@Test
 	public void testRedsCannotMoveIntoItself() throws Exception {
