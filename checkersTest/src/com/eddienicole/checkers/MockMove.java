@@ -1,16 +1,15 @@
 package com.eddienicole.checkers;
 
-import java.util.Stack;
 
 public class MockMove implements MoveInterface {
 
 	private boolean jump;
-	private final Stack<PlayableSpaceInterface> jumpedStack;
+	private PlayableSpaceInterface jumpedSpace;
 	private PlayableSpaceInterface spaceFrom;
 	private PlayableSpaceInterface spaceTo;
 
 	public MockMove() {
-		this.jumpedStack = new Stack<>();
+		this.jumpedSpace = null;
 
 	}
 
@@ -19,12 +18,7 @@ public class MockMove implements MoveInterface {
 		this.spaceFrom = spaceFrom;
 		this.spaceTo = spaceTo;
 		this.jump = jump;
-		this.jumpedStack = new Stack<>();
-	}
-
-	@Override
-	public void addToJumped(PlayableSpaceInterface jumpedSpace) {
-		this.getJumpedStack().add(jumpedSpace);
+		this.jumpedSpace = null;
 	}
 
 	@Override
@@ -40,6 +34,13 @@ public class MockMove implements MoveInterface {
 		}
 		MoveInterface other = (MoveInterface) obj;
 		if (this.jump != other.isJump()) {
+			return false;
+		}
+		if (this.jumpedSpace == null) {
+			if (other.getJumped() != null) {
+				return false;
+			}
+		} else if (!this.jumpedSpace.equals(other.getJumped())) {
 			return false;
 		}
 		if (this.spaceFrom == null) {
@@ -65,8 +66,8 @@ public class MockMove implements MoveInterface {
 	}
 
 	@Override
-	public Stack<PlayableSpaceInterface> getJumpedStack() {
-		return this.jumpedStack;
+	public PlayableSpaceInterface getJumped() {
+		return this.jumpedSpace;
 	}
 
 	@Override
@@ -88,6 +89,11 @@ public class MockMove implements MoveInterface {
 	@Override
 	public boolean isJump() {
 		return this.jump;
+	}
+
+	@Override
+	public void jumped(PlayableSpaceInterface jumpedSpace) {
+		this.jumpedSpace = jumpedSpace;
 	}
 
 	public void setFrom(PlayableSpaceInterface from) {

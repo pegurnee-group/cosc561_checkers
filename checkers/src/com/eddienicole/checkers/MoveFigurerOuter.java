@@ -225,7 +225,7 @@ public class MoveFigurerOuter {
 					if ((jumpSite != null)
 							&& (jumpSite.getState() == SpaceState.UNOCCUPIED)) {
 						Move theJumpMoveOfDoom = new Move(from, jumpSite, true);
-						theJumpMoveOfDoom.addToJumped(neighbors[i]);
+						theJumpMoveOfDoom.jumped(neighbors[i]);
 
 						toReturn.add(theJumpMoveOfDoom);
 						jumpHasOccurred = true;

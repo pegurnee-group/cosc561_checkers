@@ -22,7 +22,6 @@ public class MoveTest extends TestCase {
 		assertTrue(move1.equals(mockMove));
 		assertTrue(move2.equals(mockMove));
 		assertTrue(mockMove.equals(move1));
-
 	}
 
 	@Test
@@ -34,5 +33,4 @@ public class MoveTest extends TestCase {
 		assertSame(from, move.getFrom());
 		assertSame(to, move.getTo());
 	}
-
 }

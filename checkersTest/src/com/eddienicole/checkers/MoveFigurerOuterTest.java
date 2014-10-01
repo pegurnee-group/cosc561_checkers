@@ -216,6 +216,7 @@ public class MoveFigurerOuterTest extends TestCase {
 		expectedMockMove.setFrom(firstPiece);
 		expectedMockMove.setTo(destination);
 		expectedMockMove.setJump(true);
+		expectedMockMove.jumped(secondPiece);
 		expectedLegalMoves.add(expectedMockMove);
 
 		assertTrue(legalMoves.containsAll(expectedLegalMoves));
@@ -237,6 +238,7 @@ public class MoveFigurerOuterTest extends TestCase {
 		expectedSecondMockMove.setFrom(firstPiece);
 		expectedSecondMockMove.setTo(secondDestination);
 		expectedSecondMockMove.setJump(true);
+		expectedSecondMockMove.jumped(thirdPiece);
 
 		expectedLegalMoves.add(expectedMockMove);
 		expectedLegalMoves.add(expectedSecondMockMove);
