@@ -159,7 +159,10 @@ public class MoveFigurerOuter {
 							playableSpaces, row, column, i);
 					if ((jumpSite != null)
 							&& (jumpSite.getState() == SpaceState.UNOCCUPIED)) {
-						toReturn.add(new Move(from, jumpSite, true));
+						Move theJumpMoveOfDoom = new Move(from, jumpSite, true);
+						theJumpMoveOfDoom.addToJumped(neighbors[i]);
+
+						toReturn.add(theJumpMoveOfDoom);
 						jumpHasOccurred = true;
 					}
 				}

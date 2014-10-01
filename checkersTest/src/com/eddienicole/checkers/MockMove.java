@@ -1,12 +1,16 @@
 package com.eddienicole.checkers;
 
+import java.util.Stack;
+
 public class MockMove implements MoveInterface {
 
 	private boolean jump;
+	private final Stack<PlayableSpaceInterface> jumpedStack;
 	private PlayableSpaceInterface spaceFrom;
 	private PlayableSpaceInterface spaceTo;
 
 	public MockMove() {
+		this.jumpedStack = new Stack<>();
 
 	}
 
@@ -15,6 +19,12 @@ public class MockMove implements MoveInterface {
 		this.spaceFrom = spaceFrom;
 		this.spaceTo = spaceTo;
 		this.jump = jump;
+		this.jumpedStack = new Stack<>();
+	}
+
+	@Override
+	public void addToJumped(PlayableSpaceInterface jumpedSpace) {
+		this.getJumpedStack().add(jumpedSpace);
 	}
 
 	@Override
@@ -52,6 +62,11 @@ public class MockMove implements MoveInterface {
 	@Override
 	public PlayableSpaceInterface getFrom() {
 		return this.spaceFrom;
+	}
+
+	@Override
+	public Stack<PlayableSpaceInterface> getJumpedStack() {
+		return this.jumpedStack;
 	}
 
 	@Override

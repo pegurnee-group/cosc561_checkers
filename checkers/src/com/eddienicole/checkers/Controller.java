@@ -3,6 +3,7 @@ package com.eddienicole.checkers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Controller implements ActionListener {
 	private final CheckerboardView checkerboardView;
@@ -62,6 +63,17 @@ public class Controller implements ActionListener {
 					toSpace = spaces[i][j];
 				}
 			}
+		}
+
+		if (moveToApply.isJump()) {
+			Stack<PlayableSpaceInterface> jumpedStack = moveToApply
+					.getJumpedStack();
+			while (!jumpedStack.isEmpty()) {
+				PlayableSpaceInterface jumpedPiece = jumpedStack.pop();
+				jumpedPiece.setState(SpaceState.UNOCCUPIED);
+				jumpedPiece.setKing(false);
+			}
+
 		}
 
 		toSpace.setState(fromSpace.getState());
