@@ -260,6 +260,28 @@ public class MoveFigurerOuterTest extends TestCase {
 		assertTrue(legalMoves.containsAll(expectedLegalMoves));
 		assertTrue(expectedLegalMoves.containsAll(legalMoves));
 
+		MockPlayableSpace thirdPiece = playableSpaces[1][1];
+		MockPlayableSpace secondDestination = playableSpaces[0][0];
+
+		thirdPiece.setState(SpaceState.BLACK);
+		secondDestination.setState(SpaceState.UNOCCUPIED);
+
+		legalMoves = MoveFigurerOuter.figure(playableSpaces, itIsRedsTurn);
+
+		assertEquals(2, legalMoves.size());
+
+		expectedLegalMoves = new ArrayList<>();
+
+		MockMove expectedSecondMockMove = new MockMove();
+		expectedSecondMockMove.setFrom(firstPiece);
+		expectedSecondMockMove.setTo(secondDestination);
+		expectedSecondMockMove.setJump(true);
+
+		expectedLegalMoves.add(expectedMockMove);
+		expectedLegalMoves.add(expectedSecondMockMove);
+
+		assertTrue(legalMoves.containsAll(expectedLegalMoves));
+		assertTrue(expectedLegalMoves.containsAll(legalMoves));
 	}
 
 	@Test
