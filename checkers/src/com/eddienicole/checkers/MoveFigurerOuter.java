@@ -157,7 +157,8 @@ public class MoveFigurerOuter {
 				} else if (neighbors[i].getState() != from.getState()) {
 					PlayableSpaceInterface jumpSite = findPotentialJump(
 							playableSpaces, row, column, i);
-					if (jumpSite != null) {
+					if ((jumpSite != null)
+							&& (jumpSite.getState() == SpaceState.UNOCCUPIED)) {
 						toReturn.add(new Move(from, jumpSite, true));
 						jumpHasOccurred = true;
 					}
