@@ -2,54 +2,69 @@ package com.eddienicole.checkers;
 
 import junit.framework.TestCase;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class CheckerboardViewTest extends TestCase {
+	private CheckerboardView checkerboardView;
+	private MockPlayableSpace[][] playableSpaces;
+
+	@Override
+	@Before
+	public void setUp() throws Exception {
+		this.playableSpaces = new MockPlayableSpace[8][4];
+
+		int positionToBeAssigned = 1;
+		for (int i = 0; i < this.playableSpaces.length; i++) {
+			for (int j = 0; j < this.playableSpaces[i].length; j++) {
+				this.playableSpaces[i][j] = new MockPlayableSpace(
+						positionToBeAssigned++);
+			}
+		}
+
+		this.checkerboardView = new CheckerboardView();
+	}
+
+	@Override
+	@After
+	public void tearDown() {
+		this.playableSpaces = null;
+		this.checkerboardView = null;
+	}
 
 	@Test
 	public void testDeclareConqueringHero() throws Exception {
-		CheckerboardView checkerboardView = new CheckerboardView();
-
 		String expectedLossScreen = "Red player has emerged victorious!";
 		boolean victoryForTheRedPlayer = true;
 
 		assertEquals(expectedLossScreen,
-				checkerboardView.declareConqueringHero(victoryForTheRedPlayer));
+				this.checkerboardView
+						.declareConqueringHero(victoryForTheRedPlayer));
 
 		victoryForTheRedPlayer = false;
 		expectedLossScreen = "Black player has emerged victorious!";
 
 		assertEquals(expectedLossScreen,
-				checkerboardView.declareConqueringHero(victoryForTheRedPlayer));
+				this.checkerboardView
+						.declareConqueringHero(victoryForTheRedPlayer));
 	}
 
 	@Test
 	public void testDrawBoard() throws Exception {
-		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
+		this.playableSpaces[0][1].setState(SpaceState.RED);
 
-		int positionToBeAssigned = 1;
-		for (int i = 0; i < playableSpaces.length; i++) {
-			for (int j = 0; j < playableSpaces[i].length; j++) {
-				playableSpaces[i][j] = new MockPlayableSpace(
-						positionToBeAssigned++);
-			}
-		}
+		this.playableSpaces[1][0].setState(SpaceState.BLACK);
+		this.playableSpaces[1][0].setKing(true);
 
-		playableSpaces[0][1].setState(SpaceState.RED);
+		this.playableSpaces[4][1].setState(SpaceState.RED);
+		this.playableSpaces[4][1].setKing(true);
 
-		playableSpaces[1][0].setState(SpaceState.BLACK);
-		playableSpaces[1][0].setKing(true);
+		this.playableSpaces[6][3].setState(SpaceState.BLACK);
 
-		playableSpaces[4][1].setState(SpaceState.RED);
-		playableSpaces[4][1].setKing(true);
+		this.playableSpaces[7][0].setState(SpaceState.BLACK);
 
-		playableSpaces[6][3].setState(SpaceState.BLACK);
-
-		playableSpaces[7][0].setState(SpaceState.BLACK);
-
-		playableSpaces[7][2].setState(SpaceState.BLACK);
-
-		CheckerboardView checkerboardView = new CheckerboardView();
+		this.playableSpaces[7][2].setState(SpaceState.BLACK);
 
 		String expectedString = "   1 2 3 4 5 6 7 8\n"
 				+ "  =================\n" + "A | | | |r| | | | |\n"
@@ -58,7 +73,8 @@ public class CheckerboardViewTest extends TestCase {
 				+ "F | | | | | | | | |\n" + "G | | | | | | | |b|\n"
 				+ "H |b| | | |b| | | |\n" + "  =================\n";
 
-		String actualString = checkerboardView.drawBoard(playableSpaces);
+		String actualString = this.checkerboardView
+				.drawBoard(this.playableSpaces);
 
 		assertEquals(expectedString, actualString);
 	}

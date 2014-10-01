@@ -4,62 +4,64 @@ import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class MoveFigurerOuterTest extends TestCase {
-	@Test
-	public void testFigureOutAdjacentMovesBottomCornerAsBlack()
-			throws Exception {
+	private MockPlayableSpace[][] playableSpaces;
 
-		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
+	@Override
+	@Before
+	public void setUp() throws Exception {
+		this.playableSpaces = new MockPlayableSpace[8][4];
 
 		int positionToBeAssigned = 1;
-		for (int i = 0; i < playableSpaces.length; i++) {
-			for (int j = 0; j < playableSpaces[i].length; j++) {
-				playableSpaces[i][j] = new MockPlayableSpace(
+		for (int i = 0; i < this.playableSpaces.length; i++) {
+			for (int j = 0; j < this.playableSpaces[i].length; j++) {
+				this.playableSpaces[i][j] = new MockPlayableSpace(
 						positionToBeAssigned++);
 			}
 		}
+	}
 
-		MockPlayableSpace fromSpace = playableSpaces[7][0];
+	@Override
+	@After
+	public void tearDown() {
+		this.playableSpaces = null;
+	}
+
+	@Test
+	public void testFigureOutAdjacentMovesBottomCornerAsBlack()
+			throws Exception {
+		MockPlayableSpace fromSpace = this.playableSpaces[7][0];
 
 		fromSpace.setState(SpaceState.RED);
 
 		boolean itIsRedsTurn = false;
 
 		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
-				playableSpaces, itIsRedsTurn);
+				this.playableSpaces, itIsRedsTurn);
 
 		assertEquals(0, legalMoves.size());
 	}
 
 	@Test
 	public void testFigureOutAdjacentMovesBottomCornerAsRed() throws Exception {
-
-		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
-
-		int positionToBeAssigned = 1;
-		for (int i = 0; i < playableSpaces.length; i++) {
-			for (int j = 0; j < playableSpaces[i].length; j++) {
-				playableSpaces[i][j] = new MockPlayableSpace(
-						positionToBeAssigned++);
-			}
-		}
-
-		MockPlayableSpace fromSpace = playableSpaces[7][0];
+		MockPlayableSpace fromSpace = this.playableSpaces[7][0];
 
 		fromSpace.setState(SpaceState.RED);
 
 		boolean itIsRedsTurn = true;
 
 		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
-				playableSpaces, itIsRedsTurn);
+				this.playableSpaces, itIsRedsTurn);
 
 		assertEquals(1, legalMoves.size());
 
 		MockMove expectedLegalMove = new MockMove();
 
-		MockPlayableSpace expectedToSpace = playableSpaces[6][0];
+		MockPlayableSpace expectedToSpace = this.playableSpaces[6][0];
 
 		expectedLegalMove.setFrom(fromSpace);
 		expectedLegalMove.setTo(expectedToSpace);
@@ -69,19 +71,8 @@ public class MoveFigurerOuterTest extends TestCase {
 
 	@Test
 	public void testFigureOutAdjacentMovesBottomRowAsRed() throws Exception {
-
-		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
-
-		int positionToBeAssigned = 1;
-		for (int i = 0; i < playableSpaces.length; i++) {
-			for (int j = 0; j < playableSpaces[i].length; j++) {
-				playableSpaces[i][j] = new MockPlayableSpace(
-						positionToBeAssigned++);
-			}
-		}
-
-		for (int i = 0; i < playableSpaces[7].length; i++) {
-			MockPlayableSpace fromSpace = playableSpaces[7][i];
+		for (int i = 0; i < this.playableSpaces[7].length; i++) {
+			MockPlayableSpace fromSpace = this.playableSpaces[7][i];
 
 			fromSpace.setState(SpaceState.RED);
 		}
@@ -89,15 +80,15 @@ public class MoveFigurerOuterTest extends TestCase {
 		boolean itIsRedsTurn = true;
 
 		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
-				playableSpaces, itIsRedsTurn);
+				this.playableSpaces, itIsRedsTurn);
 
 		assertEquals(7, legalMoves.size());
 
 		ArrayList<MoveInterface> expectedLegalMoves = new ArrayList<>();
 
-		for (int i = 0; i < playableSpaces[7].length; i++) {
-			MockPlayableSpace fromSpace = playableSpaces[7][i];
-			MockPlayableSpace toSpace = playableSpaces[6][i];
+		for (int i = 0; i < this.playableSpaces[7].length; i++) {
+			MockPlayableSpace fromSpace = this.playableSpaces[7][i];
+			MockPlayableSpace toSpace = this.playableSpaces[6][i];
 
 			MockMove expectedMockMove = new MockMove();
 			expectedMockMove.setFrom(fromSpace);
@@ -106,7 +97,7 @@ public class MoveFigurerOuterTest extends TestCase {
 			expectedLegalMoves.add(expectedMockMove);
 
 			if (i > 0) {
-				toSpace = playableSpaces[6][i - 1];
+				toSpace = this.playableSpaces[6][i - 1];
 				MockMove expectedAnotherMove = new MockMove();
 				expectedAnotherMove.setFrom(fromSpace);
 				expectedAnotherMove.setTo(toSpace);
@@ -122,19 +113,8 @@ public class MoveFigurerOuterTest extends TestCase {
 
 	@Test
 	public void testFigureOutAdjacentMovesTopRowAsBlack() throws Exception {
-
-		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
-
-		int positionToBeAssigned = 1;
-		for (int i = 0; i < playableSpaces.length; i++) {
-			for (int j = 0; j < playableSpaces[i].length; j++) {
-				playableSpaces[i][j] = new MockPlayableSpace(
-						positionToBeAssigned++);
-			}
-		}
-
-		for (int i = 0; i < playableSpaces[0].length; i++) {
-			MockPlayableSpace fromSpace = playableSpaces[0][i];
+		for (int i = 0; i < this.playableSpaces[0].length; i++) {
+			MockPlayableSpace fromSpace = this.playableSpaces[0][i];
 
 			fromSpace.setState(SpaceState.BLACK);
 		}
@@ -142,15 +122,15 @@ public class MoveFigurerOuterTest extends TestCase {
 		boolean itIsRedsTurn = false;
 
 		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
-				playableSpaces, itIsRedsTurn);
+				this.playableSpaces, itIsRedsTurn);
 
 		assertEquals(7, legalMoves.size());
 
 		ArrayList<MoveInterface> expectedLegalMoves = new ArrayList<>();
 
-		for (int column = 0; column < playableSpaces[0].length; column++) {
-			MockPlayableSpace fromSpace = playableSpaces[0][column];
-			MockPlayableSpace toSpace = playableSpaces[1][column];
+		for (int column = 0; column < this.playableSpaces[0].length; column++) {
+			MockPlayableSpace fromSpace = this.playableSpaces[0][column];
+			MockPlayableSpace toSpace = this.playableSpaces[1][column];
 
 			MockMove expectedMockMove = new MockMove();
 			expectedMockMove.setFrom(fromSpace);
@@ -158,8 +138,8 @@ public class MoveFigurerOuterTest extends TestCase {
 
 			expectedLegalMoves.add(expectedMockMove);
 
-			if (column < (playableSpaces[0].length - 1)) {
-				toSpace = playableSpaces[1][column + 1];
+			if (column < (this.playableSpaces[0].length - 1)) {
+				toSpace = this.playableSpaces[1][column + 1];
 				MockMove expectedAnotherMove = new MockMove();
 				expectedAnotherMove.setFrom(fromSpace);
 				expectedAnotherMove.setTo(toSpace);
@@ -174,24 +154,14 @@ public class MoveFigurerOuterTest extends TestCase {
 
 	@Test
 	public void testFigureOutRedsGottaKingInTheMiddle() throws Exception {
-		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
-
-		int positionToBeAssigned = 1;
-		for (int i = 0; i < playableSpaces.length; i++) {
-			for (int j = 0; j < playableSpaces[i].length; j++) {
-				playableSpaces[i][j] = new MockPlayableSpace(
-						positionToBeAssigned++);
-			}
-		}
-
-		MockPlayableSpace theRedKing = playableSpaces[3][3];
+		MockPlayableSpace theRedKing = this.playableSpaces[3][3];
 		theRedKing.setState(SpaceState.RED);
 		theRedKing.setKing(true);
 
 		boolean itIsRedsTurn = true;
 
 		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
-				playableSpaces, itIsRedsTurn);
+				this.playableSpaces, itIsRedsTurn);
 
 		assertEquals(4, legalMoves.size());
 
@@ -202,41 +172,32 @@ public class MoveFigurerOuterTest extends TestCase {
 
 		boolean isAJump = false;
 
-		MockPlayableSpace toSpace1 = playableSpaces[2][3];
+		MockPlayableSpace toSpace1 = this.playableSpaces[2][3];
 		expectedLegalMoves.add(new MockMove(theRedKing, toSpace1, isAJump));
 
-		MockPlayableSpace toSpace2 = playableSpaces[4][3];
+		MockPlayableSpace toSpace2 = this.playableSpaces[4][3];
 		expectedLegalMoves.add(new MockMove(theRedKing, toSpace2, isAJump));
 
-		MockPlayableSpace toSpace3 = playableSpaces[2][2];
+		MockPlayableSpace toSpace3 = this.playableSpaces[2][2];
 		expectedLegalMoves.add(new MockMove(theRedKing, toSpace3, isAJump));
 
-		MockPlayableSpace toSpace4 = playableSpaces[4][2];
+		MockPlayableSpace toSpace4 = this.playableSpaces[4][2];
 		expectedLegalMoves.add(new MockMove(theRedKing, toSpace4, isAJump));
 
 		assertTrue(legalMoves.containsAll(expectedLegalMoves));
 		assertTrue(expectedLegalMoves.containsAll(legalMoves));
 
 		itIsRedsTurn = false;
-		legalMoves = MoveFigurerOuter.figure(playableSpaces, itIsRedsTurn);
+		legalMoves = MoveFigurerOuter.figure(this.playableSpaces, itIsRedsTurn);
 
 		assertEquals(0, legalMoves.size());
 	}
 
 	@Test
 	public void testJumpsForRedInTheMiddle() throws Exception {
-		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
-		int positionToBeAssigned = 1;
-		for (int row = 0; row < playableSpaces.length; row++) {
-			for (int column = 0; column < playableSpaces[row].length; column++) {
-				playableSpaces[row][column] = new MockPlayableSpace(
-						positionToBeAssigned++);
-			}
-		}
-
-		MockPlayableSpace firstPiece = playableSpaces[2][1];
-		MockPlayableSpace secondPiece = playableSpaces[1][2];
-		MockPlayableSpace destination = playableSpaces[0][2];
+		MockPlayableSpace firstPiece = this.playableSpaces[2][1];
+		MockPlayableSpace secondPiece = this.playableSpaces[1][2];
+		MockPlayableSpace destination = this.playableSpaces[0][2];
 
 		firstPiece.setState(SpaceState.RED);
 		secondPiece.setState(SpaceState.BLACK);
@@ -245,7 +206,7 @@ public class MoveFigurerOuterTest extends TestCase {
 		boolean itIsRedsTurn = true;
 
 		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
-				playableSpaces, itIsRedsTurn);
+				this.playableSpaces, itIsRedsTurn);
 
 		assertEquals(1, legalMoves.size());
 
@@ -260,13 +221,13 @@ public class MoveFigurerOuterTest extends TestCase {
 		assertTrue(legalMoves.containsAll(expectedLegalMoves));
 		assertTrue(expectedLegalMoves.containsAll(legalMoves));
 
-		MockPlayableSpace thirdPiece = playableSpaces[1][1];
-		MockPlayableSpace secondDestination = playableSpaces[0][0];
+		MockPlayableSpace thirdPiece = this.playableSpaces[1][1];
+		MockPlayableSpace secondDestination = this.playableSpaces[0][0];
 
 		thirdPiece.setState(SpaceState.BLACK);
 		secondDestination.setState(SpaceState.UNOCCUPIED);
 
-		legalMoves = MoveFigurerOuter.figure(playableSpaces, itIsRedsTurn);
+		legalMoves = MoveFigurerOuter.figure(this.playableSpaces, itIsRedsTurn);
 
 		assertEquals(2, legalMoves.size());
 
@@ -286,18 +247,8 @@ public class MoveFigurerOuterTest extends TestCase {
 
 	@Test
 	public void testRedsCannotMoveIntoItself() throws Exception {
-		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
-
-		int positionToBeAssigned = 1;
-		for (int i = 0; i < playableSpaces.length; i++) {
-			for (int j = 0; j < playableSpaces[i].length; j++) {
-				playableSpaces[i][j] = new MockPlayableSpace(
-						positionToBeAssigned++);
-			}
-		}
-
-		MockPlayableSpace firstPiece = playableSpaces[2][2];
-		MockPlayableSpace secondPiece = playableSpaces[1][2];
+		MockPlayableSpace firstPiece = this.playableSpaces[2][2];
+		MockPlayableSpace secondPiece = this.playableSpaces[1][2];
 
 		firstPiece.setState(SpaceState.RED);
 		secondPiece.setState(SpaceState.RED);
@@ -305,7 +256,7 @@ public class MoveFigurerOuterTest extends TestCase {
 		boolean itIsRedsTurn = true;
 
 		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
-				playableSpaces, itIsRedsTurn);
+				this.playableSpaces, itIsRedsTurn);
 
 		assertEquals(3, legalMoves.size());
 
@@ -316,15 +267,15 @@ public class MoveFigurerOuterTest extends TestCase {
 
 		boolean isAJump = false;
 
-		MockPlayableSpace firstPieceOnlyTarget = playableSpaces[1][3];
+		MockPlayableSpace firstPieceOnlyTarget = this.playableSpaces[1][3];
 		expectedLegalMoves.add(new MockMove(firstPiece, firstPieceOnlyTarget,
 				isAJump));
 
-		MockPlayableSpace secondPieceFirstTarget = playableSpaces[0][2];
+		MockPlayableSpace secondPieceFirstTarget = this.playableSpaces[0][2];
 		expectedLegalMoves.add(new MockMove(secondPiece,
 				secondPieceFirstTarget, isAJump));
 
-		MockPlayableSpace secondPieceSecondTarget = playableSpaces[0][1];
+		MockPlayableSpace secondPieceSecondTarget = this.playableSpaces[0][1];
 		expectedLegalMoves.add(new MockMove(secondPiece,
 				secondPieceSecondTarget, isAJump));
 

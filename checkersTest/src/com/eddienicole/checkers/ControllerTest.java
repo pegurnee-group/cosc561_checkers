@@ -1,14 +1,40 @@
 package com.eddienicole.checkers;
 
-import static org.junit.Assert.assertEquals;
+import junit.framework.TestCase;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-public class ControllerTest {
+public class ControllerTest extends TestCase {
+	private Controller controller;
+	private MockPlayableSpace[][] playableSpaces;
+
+	@Override
+	@Before
+	public void setUp() throws Exception {
+		this.playableSpaces = new MockPlayableSpace[8][4];
+
+		int positionToBeAssigned = 1;
+		for (int i = 0; i < this.playableSpaces.length; i++) {
+			for (int j = 0; j < this.playableSpaces[i].length; j++) {
+				this.playableSpaces[i][j] = new MockPlayableSpace(
+						positionToBeAssigned++);
+			}
+		}
+
+		this.controller = new Controller(null, null);
+	}
+
+	@Override
+	@After
+	public void tearDown() {
+		this.playableSpaces = null;
+		this.controller = null;
+	}
+
 	@Test
 	public void testConstructorAndInitalBoard() throws Exception {
-		Controller controller = new Controller(null, null);
-
 		String expectedStartingBoard = "   1 2 3 4 5 6 7 8\n"
 				+ "  =================\n" + "A | |b| |b| |b| |b|\n"
 				+ "B |b| |b| |b| |b| |\n" + "C | |b| |b| |b| |b|\n"
@@ -16,12 +42,11 @@ public class ControllerTest {
 				+ "F |r| |r| |r| |r| |\n" + "G | |r| |r| |r| |r|\n"
 				+ "H |r| |r| |r| |r| |\n" + "  =================\n";
 
-		assertEquals(expectedStartingBoard, controller.drawCurrentBoard());
+		assertEquals(expectedStartingBoard, this.controller.drawCurrentBoard());
 	}
 
 	@Test
 	public void testDoMove() throws Exception {
-
 		MockPlayableSpace expectedFromSpace = new MockPlayableSpace(22);
 		MockPlayableSpace expectedToSpace = new MockPlayableSpace(18);
 
@@ -33,9 +58,7 @@ public class ControllerTest {
 		mockPlayer.setRed(true);
 		mockPlayer.setTheMoveThatThisGuyIsOftenProneToDoing(expectedMove);
 
-		Controller controller = new Controller(null, null);
-
-		controller.doMove(mockPlayer);
+		this.controller.doMove(mockPlayer);
 
 		String expectedNewBoard = "   1 2 3 4 5 6 7 8\n"
 				+ "  =================\n" + "A | |b| |b| |b| |b|\n"
@@ -43,7 +66,7 @@ public class ControllerTest {
 				+ "D | | | | | | | | |\n" + "E | | | |r| | | | |\n"
 				+ "F |r| | | |r| |r| |\n" + "G | |r| |r| |r| |r|\n"
 				+ "H |r| |r| |r| |r| |\n" + "  =================\n";
-		assertEquals(expectedNewBoard, controller.drawCurrentBoard());
+		assertEquals(expectedNewBoard, this.controller.drawCurrentBoard());
 
 		expectedFromSpace = new MockPlayableSpace(9);
 		expectedToSpace = new MockPlayableSpace(14);
@@ -53,13 +76,13 @@ public class ControllerTest {
 
 		mockPlayer.setTheMoveThatThisGuyIsOftenProneToDoing(expectedMove);
 
-		controller.doMove(mockPlayer);
+		this.controller.doMove(mockPlayer);
 		expectedNewBoard = "   1 2 3 4 5 6 7 8\n" + "  =================\n"
 				+ "A | |b| |b| |b| |b|\n" + "B |b| |b| |b| |b| |\n"
 				+ "C | | | |b| |b| |b|\n" + "D | | |b| | | | | |\n"
 				+ "E | | | |r| | | | |\n" + "F |r| | | |r| |r| |\n"
 				+ "G | |r| |r| |r| |r|\n" + "H |r| |r| |r| |r| |\n"
 				+ "  =================\n";
-		assertEquals(expectedNewBoard, controller.drawCurrentBoard());
+		assertEquals(expectedNewBoard, this.controller.drawCurrentBoard());
 	}
 }

@@ -2,15 +2,41 @@ package com.eddienicole.checkers;
 
 import junit.framework.TestCase;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class CheckersModelTest extends TestCase {
+	private CheckersModel checkersModel;
+	private MockPlayableSpace[][] playableSpaces;
 
+	@Override
+	@Before
+	public void setUp() throws Exception {
+		this.playableSpaces = new MockPlayableSpace[8][4];
+
+		int positionToBeAssigned = 1;
+		for (int i = 0; i < this.playableSpaces.length; i++) {
+			for (int j = 0; j < this.playableSpaces[i].length; j++) {
+				this.playableSpaces[i][j] = new MockPlayableSpace(
+						positionToBeAssigned++);
+			}
+		}
+
+		this.checkersModel = new CheckersModel();
+	}
+
+	@Override
+	@After
+	public void tearDown() {
+		this.playableSpaces = null;
+		this.checkersModel = null;
+	}
+
+	@Test
 	public void testConstructorPopulatesPlayableSpacesWithStartingLayout()
 			throws Exception {
-		CheckersModel checkersModel = new CheckersModel();
-
-		PlayableSpace[][] modelSpaces = (PlayableSpace[][]) checkersModel
+		PlayableSpaceInterface[][] modelSpaces = this.checkersModel
 				.getPlayableSpaces();
 
 		for (int i = 0; i < modelSpaces.length; i++) {
@@ -31,37 +57,25 @@ public class CheckersModelTest extends TestCase {
 	@Test
 	public void testEmptyConstructorInitializesPositionsCorrectly()
 			throws Exception {
-		CheckersModel checkersModel = new CheckersModel();
-
-		PlayableSpaceInterface[][] playableSpaces = checkersModel
-				.getPlayableSpaces();
-
 		int expectedPosition = 1;
 
-		for (int i = 0; i < playableSpaces.length; i++) {
-			for (int j = 0; j < playableSpaces[i].length; j++) {
+		for (int i = 0; i < this.playableSpaces.length; i++) {
+			for (int j = 0; j < this.playableSpaces[i].length; j++) {
 				assertEquals(expectedPosition++,
-						playableSpaces[i][j].getPosition());
+						this.playableSpaces[i][j].getPosition());
 			}
 		}
 	}
 
 	@Test
 	public void testGetters() throws Exception {
-		MockPlayableSpace[][] playableSpaces = new MockPlayableSpace[8][4];
-		MockPlayableSpace[] expectedSpaces = new MockPlayableSpace[32];
+		CheckersModel checkersModel = new CheckersModel(this.playableSpaces);
 
-		int positionToBeAssigned = 1;
-		for (int i = 0; i < expectedSpaces.length; i++) {
-			expectedSpaces[i] = new MockPlayableSpace(positionToBeAssigned++);
-		}
-		int i = 0;
-		for (int j = 0; j < playableSpaces.length; j++) {
-			for (int k = 0; k < playableSpaces[j].length; k++) {
-				playableSpaces[j][k] = expectedSpaces[i++];
+		for (int j = 0; j < this.playableSpaces.length; j++) {
+			for (int k = 0; k < this.playableSpaces[j].length; k++) {
+				assertSame(this.playableSpaces[j][k],
+						checkersModel.getPlayableSpaces()[j][k]);
 			}
 		}
-		CheckersModel checkersModel = new CheckersModel(playableSpaces);
-		assertSame(expectedSpaces[0], checkersModel.getPlayableSpaces()[0][0]);
 	}
 }

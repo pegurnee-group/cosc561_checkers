@@ -2,37 +2,28 @@ package com.eddienicole.checkers;
 
 import junit.framework.TestCase;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class PlayableSpaceTest extends TestCase {
+	private PlayableSpace playableSpace;
+	private final int positionToBeAssigned = 1;
 
-	@Test
-	public void testEqualsMethodRecognizesMockPlayableSpace() throws Exception {
-		int position = 1;
+	@Override
+	@Before
+	public void setUp() throws Exception {
+		this.playableSpace = new PlayableSpace(this.positionToBeAssigned);
+	}
 
-		PlayableSpace realPlayableSpace = new PlayableSpace(position);
-		MockPlayableSpace mockPlayableSpace = new MockPlayableSpace(position);
-
-		assertEquals(realPlayableSpace, mockPlayableSpace);
-
-		realPlayableSpace.setState(SpaceState.RED);
-		mockPlayableSpace.setState(SpaceState.BLACK);
-
-		assertFalse(realPlayableSpace.equals(mockPlayableSpace));
-
-		mockPlayableSpace.setState(SpaceState.RED);
-
-		realPlayableSpace.setKing(true);
-
-		mockPlayableSpace.setKing(true);
-
-		assertEquals(realPlayableSpace, mockPlayableSpace);
-		assertTrue(mockPlayableSpace.equals(realPlayableSpace));
-
+	@Override
+	@After
+	public void tearDown() {
+		this.playableSpace = null;
 	}
 
 	@Test
-	public void testGetters() throws Exception {
+	public void testConstrutorAndGetters() throws Exception {
 		SpaceState spaceState = SpaceState.UNOCCUPIED;
 		boolean isKing = false;
 		int position = 1;
@@ -43,5 +34,27 @@ public class PlayableSpaceTest extends TestCase {
 		assertSame(isKing, playableSpace.isKing());
 		assertSame(position, playableSpace.getPosition());
 
+	}
+
+	@Test
+	public void testEqualsMethodRecognizesMockPlayableSpace() throws Exception {
+		int position = 1;
+		MockPlayableSpace mockPlayableSpace = new MockPlayableSpace(position);
+
+		assertEquals(this.playableSpace, mockPlayableSpace);
+
+		this.playableSpace.setState(SpaceState.RED);
+		mockPlayableSpace.setState(SpaceState.BLACK);
+
+		assertFalse(this.playableSpace.equals(mockPlayableSpace));
+
+		mockPlayableSpace.setState(SpaceState.RED);
+
+		this.playableSpace.setKing(true);
+
+		mockPlayableSpace.setKing(true);
+
+		assertEquals(this.playableSpace, mockPlayableSpace);
+		assertTrue(this.playableSpace.equals(mockPlayableSpace));
 	}
 }
