@@ -17,12 +17,11 @@ public class HumanPlayer implements PlayerInterface {
 	public MoveInterface getMove(ArrayList<MoveInterface> legalMoves) {
 		MoveInterface moveToReturn;
 		while (true) {
-			System.out.println("Legal moves:");
+			System.out.println("Legal moves for " + (isRed ? "RED" : "BLACK")
+					+ ":");
 			int numberOfLegalMoves = legalMoves.size();
 			for (int index = 0; index < numberOfLegalMoves; index++) {
-				System.out.printf("%3d %2d-%-2d\n", index + 1,
-						legalMoves.get(index).getFrom().getPosition(),
-						legalMoves.get(index).getTo().getPosition());
+				printMoveInTermsOfPositionAndRowColumn(legalMoves, index);
 			}
 			try {
 				moveToReturn = legalMoves.get(this.keyboard.nextInt() - 1);
@@ -33,6 +32,24 @@ public class HumanPlayer implements PlayerInterface {
 		}
 		this.keyboard.nextLine();
 		return moveToReturn;
+	}
+
+	private void printMoveInTermsOfPositionAndRowColumn(
+			ArrayList<MoveInterface> legalMoves, int index) {
+		int positionFrom = legalMoves.get(index).getFrom().getPosition();
+		int positionTo = legalMoves.get(index).getTo().getPosition();
+
+		int positionFromRow = (positionFrom - 1) * 2 / 8;
+		int positionToRow = (positionTo - 1) * 2 / 8;
+
+		int positionFromColumnAsChar = (positionFrom - 1) * 2 % 8
+				+ (positionFromRow % 2 == 0 ? 1 : 0) + 65;
+		int positionToColumnAsChar = (positionTo - 1) * 2 % 8
+				+ (positionToRow % 2 == 0 ? 1 : 0) + 65;
+
+		System.out.printf("%3d %2d-%-2d  (%c%d-%c%d)\n", index + 1,
+				positionFrom, positionTo, positionFromColumnAsChar,
+				positionFromRow + 1, positionToColumnAsChar, positionToRow + 1);
 	}
 
 	@Override
