@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class Controller implements ActionListener {
 	private final CheckerboardView checkerboardView;
 	private final CheckersModel checkersModel;
-	private final PlayerInterface playerBlack;
-	private final PlayerInterface playerRed;
+	private final AbstractPlayer playerBlack;
+	private final AbstractPlayer playerRed;
 
-	public Controller(PlayerInterface redPlayer, PlayerInterface blackPlayer) {
+	public Controller(AbstractPlayer redPlayer, AbstractPlayer blackPlayer) {
 		this.checkersModel = new CheckersModel();
 		this.checkerboardView = new CheckerboardView();
 		this.playerRed = redPlayer;
@@ -26,7 +26,7 @@ public class Controller implements ActionListener {
 		this.checkerboardView.declareConqueringHero(redPlayerHasWon);
 	}
 
-	public boolean doMove(PlayerInterface playerWhoseTurnItIs) {
+	public boolean doMove(AbstractPlayer playerWhoseTurnItIs) {
 		ArrayList<MoveInterface> legalMoves = MoveFigurerOuter.figure(
 				this.checkersModel.getPlayableSpaces(),
 				playerWhoseTurnItIs.isRed());

@@ -2,10 +2,16 @@ package com.eddienicole.checkers;
 
 import java.util.ArrayList;
 
-public class MockPlayer implements PlayerInterface {
-
-	private boolean isRed;
+public class MockPlayer extends AbstractPlayer {
 	private MoveInterface theMoveThatThisGuyIsOftenProneToDoing;
+
+	public MockPlayer() {
+		super(false);
+	}
+
+	public MockPlayer(boolean isRed) {
+		super(isRed);
+	}
 
 	@Override
 	public MoveInterface getMove(ArrayList<MoveInterface> legalMoves) {

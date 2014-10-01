@@ -10,8 +10,8 @@ public class PlayTheGame {
 
 		boolean redPlayerHasWon;
 
-		PlayerInterface playerRed;
-		PlayerInterface playerBlack;
+		AbstractPlayer playerRed;
+		AbstractPlayer playerBlack;
 
 		Scanner keyboard = new Scanner(System.in);
 
@@ -24,20 +24,20 @@ public class PlayTheGame {
 
 		switch (kindOfGame) {
 		case 1:
-			playerBlack = new AI(isBlack);
-			playerRed = new HumanPlayer(isRed);
+			playerBlack = new BasicAI(isBlack);
+			playerRed = new HumanPlayerConsoleOut(isRed);
 			break;
 		case 2:
-			playerBlack = new HumanPlayer(isBlack);
-			playerRed = new AI(isRed);
+			playerBlack = new HumanPlayerConsoleOut(isBlack);
+			playerRed = new BasicAI(isRed);
 			break;
 		case 3:
-			playerBlack = new AI(isBlack);
-			playerRed = new AI(isRed);
+			playerBlack = new BasicAI(isBlack);
+			playerRed = new BasicAI(isRed);
 			break;
 		default:
-			playerBlack = new HumanPlayer(isBlack);
-			playerRed = new HumanPlayer(isRed);
+			playerBlack = new HumanPlayerConsoleOut(isBlack);
+			playerRed = new HumanPlayerConsoleOut(isRed);
 			break;
 		}
 		Controller controller = new Controller(playerRed, playerBlack);
