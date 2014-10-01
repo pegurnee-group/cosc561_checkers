@@ -51,12 +51,12 @@ public class CheckerboardViewTest extends TestCase {
 
 		CheckerboardView checkerboardView = new CheckerboardView();
 
-		String expectedString = "   A B C D E F G H\n"
-				+ "  =================\n" + "1 | | | |r| | | | |\n"
-				+ "2 |B| | | | | | | |\n" + "3 | | | | | | | | |\n"
-				+ "4 | | | | | | | | |\n" + "5 | | | |R| | | | |\n"
-				+ "6 | | | | | | | | |\n" + "7 | | | | | | | |b|\n"
-				+ "8 |b| | | |b| | | |\n" + "  =================\n";
+		String expectedString = "   1 2 3 4 5 6 7 8\n"
+				+ "  =================\n" + "A | | | |r| | | | |\n"
+				+ "B |B| | | | | | | |\n" + "C | | | | | | | | |\n"
+				+ "D | | | | | | | | |\n" + "E | | | |R| | | | |\n"
+				+ "F | | | | | | | | |\n" + "G | | | | | | | |b|\n"
+				+ "H |b| | | |b| | | |\n" + "  =================\n";
 
 		String actualString = checkerboardView.drawBoard(playableSpaces);
 

@@ -9,12 +9,12 @@ public class ControllerTest {
 	public void testConstructorAndInitalBoard() throws Exception {
 		Controller controller = new Controller(null, null);
 
-		String expectedStartingBoard = "   A B C D E F G H\n"
-				+ "  =================\n" + "1 | |b| |b| |b| |b|\n"
-				+ "2 |b| |b| |b| |b| |\n" + "3 | |b| |b| |b| |b|\n"
-				+ "4 | | | | | | | | |\n" + "5 | | | | | | | | |\n"
-				+ "6 |r| |r| |r| |r| |\n" + "7 | |r| |r| |r| |r|\n"
-				+ "8 |r| |r| |r| |r| |\n" + "  =================\n";
+		String expectedStartingBoard = "   1 2 3 4 5 6 7 8\n"
+				+ "  =================\n" + "A | |b| |b| |b| |b|\n"
+				+ "B |b| |b| |b| |b| |\n" + "C | |b| |b| |b| |b|\n"
+				+ "D | | | | | | | | |\n" + "E | | | | | | | | |\n"
+				+ "F |r| |r| |r| |r| |\n" + "G | |r| |r| |r| |r|\n"
+				+ "H |r| |r| |r| |r| |\n" + "  =================\n";
 
 		assertEquals(expectedStartingBoard, controller.drawCurrentBoard());
 	}
@@ -37,12 +37,12 @@ public class ControllerTest {
 
 		controller.doMove(mockPlayer);
 
-		String expectedNewBoard = "   A B C D E F G H\n"
-				+ "  =================\n" + "1 | |b| |b| |b| |b|\n"
-				+ "2 |b| |b| |b| |b| |\n" + "3 | |b| |b| |b| |b|\n"
-				+ "4 | | | | | | | | |\n" + "5 | | | |r| | | | |\n"
-				+ "6 |r| | | |r| |r| |\n" + "7 | |r| |r| |r| |r|\n"
-				+ "8 |r| |r| |r| |r| |\n" + "  =================\n";
+		String expectedNewBoard = "   1 2 3 4 5 6 7 8\n"
+				+ "  =================\n" + "A | |b| |b| |b| |b|\n"
+				+ "B |b| |b| |b| |b| |\n" + "C | |b| |b| |b| |b|\n"
+				+ "D | | | | | | | | |\n" + "E | | | |r| | | | |\n"
+				+ "F |r| | | |r| |r| |\n" + "G | |r| |r| |r| |r|\n"
+				+ "H |r| |r| |r| |r| |\n" + "  =================\n";
 		assertEquals(expectedNewBoard, controller.drawCurrentBoard());
 
 		expectedFromSpace = new MockPlayableSpace(9);
@@ -54,11 +54,11 @@ public class ControllerTest {
 		mockPlayer.setTheMoveThatThisGuyIsOftenProneToDoing(expectedMove);
 
 		controller.doMove(mockPlayer);
-		expectedNewBoard = "   A B C D E F G H\n" + "  =================\n"
-				+ "1 | |b| |b| |b| |b|\n" + "2 |b| |b| |b| |b| |\n"
-				+ "3 | | | |b| |b| |b|\n" + "4 | | |b| | | | | |\n"
-				+ "5 | | | |r| | | | |\n" + "6 |r| | | |r| |r| |\n"
-				+ "7 | |r| |r| |r| |r|\n" + "8 |r| |r| |r| |r| |\n"
+		expectedNewBoard = "   1 2 3 4 5 6 7 8\n" + "  =================\n"
+				+ "A | |b| |b| |b| |b|\n" + "B |b| |b| |b| |b| |\n"
+				+ "C | | | |b| |b| |b|\n" + "D | | |b| | | | | |\n"
+				+ "E | | | |r| | | | |\n" + "F |r| | | |r| |r| |\n"
+				+ "G | |r| |r| |r| |r|\n" + "H |r| |r| |r| |r| |\n"
 				+ "  =================\n";
 		assertEquals(expectedNewBoard, controller.drawCurrentBoard());
 	}

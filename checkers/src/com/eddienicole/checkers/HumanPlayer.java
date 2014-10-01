@@ -43,13 +43,14 @@ public class HumanPlayer implements PlayerInterface {
 		int positionToRow = (positionTo - 1) * 2 / 8;
 
 		int positionFromColumnAsChar = (positionFrom - 1) * 2 % 8
-				+ (positionFromRow % 2 == 0 ? 1 : 0) + 65;
+				+ (positionFromRow % 2 == 0 ? 1 : 0) + 1;
 		int positionToColumnAsChar = (positionTo - 1) * 2 % 8
-				+ (positionToRow % 2 == 0 ? 1 : 0) + 65;
+				+ (positionToRow % 2 == 0 ? 1 : 0) + 1;
 
 		System.out.printf("%3d %2d-%-2d  (%c%d-%c%d)\n", index + 1,
-				positionFrom, positionTo, positionFromColumnAsChar,
-				positionFromRow + 1, positionToColumnAsChar, positionToRow + 1);
+				positionFrom, positionTo, positionFromRow + 65,
+				positionFromColumnAsChar, positionToRow + 65,
+				positionToColumnAsChar);
 	}
 
 	@Override
