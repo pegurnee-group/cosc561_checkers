@@ -2,13 +2,13 @@ package com.eddienicole.checkers;
 
 import java.util.ArrayList;
 
-public class BasicAI extends AbstractAI {
-	public BasicAI(boolean isRed) {
+public class AIBasic extends AbstractAI {
+	public AIBasic(boolean isRed) {
 		super(isRed);
 	}
 
 	@Override
-	public MoveInterface getMove(ArrayList<MoveInterface> legalMoves) {
+	public MoveInterface computeMove(ArrayList<MoveInterface> legalMoves) {
 		// TODO Auto-generated method stub
 		return null;
 	}

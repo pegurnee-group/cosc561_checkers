@@ -56,12 +56,9 @@ public class MoveFigurerOuter {
 		int column = (startPoint.getPosition() - 1) % 4;
 		int row = (startPoint.getPosition() - 1) / 4;
 
-		System.out.println("row " + row + "\ncol " + column);
 		PlayableSpaceInterface[] possibleMoves = findNeighbors(playableSpaces,
 				row, column, isEven(row));
-		// PlayableSpaceInterface[] possibleJumps =
-		// findPotentialJumps(playableSpaces, row, column);
-		// boolean moreJump = false;
+
 		for (int i = 0; i < possibleMoves.length; i++) {
 			if ((possibleMoves[i] != null)
 					&& (possibleMoves[i].getState() != SpaceState.UNOCCUPIED)

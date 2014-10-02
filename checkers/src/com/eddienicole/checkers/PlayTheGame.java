@@ -24,16 +24,23 @@ public class PlayTheGame {
 
 		switch (kindOfGame) {
 		case 1:
-			playerBlack = new BasicAI(isBlack);
+			playerBlack = new AIBasic(isBlack);
 			playerRed = new HumanPlayerConsoleOut(isRed);
 			break;
 		case 2:
 			playerBlack = new HumanPlayerConsoleOut(isBlack);
-			playerRed = new BasicAI(isRed);
+			playerRed = new AIBasic(isRed);
 			break;
 		case 3:
-			playerBlack = new BasicAI(isBlack);
-			playerRed = new BasicAI(isRed);
+			System.out.println("What level AI? ");
+			int aiLevel = keyboard.nextInt();
+			if (aiLevel == 0) {
+				playerBlack = new AIRandom(isBlack);
+				playerRed = new AIRandom(isRed);
+			} else {
+				playerBlack = new AIBasic(isBlack);
+				playerRed = new AIBasic(isRed);
+			}
 			break;
 		default:
 			playerBlack = new HumanPlayerConsoleOut(isBlack);
@@ -44,6 +51,7 @@ public class PlayTheGame {
 
 		controller.drawCurrentBoard();
 
+		int turns = 0;
 		while (true) {
 			if (!controller.doMove(playerBlack)) {
 				redPlayerHasWon = true;
@@ -55,10 +63,11 @@ public class PlayTheGame {
 				break;
 			}
 			controller.drawCurrentBoard();
+			turns++;
 		}
 
 		controller.declareConqueringHero(redPlayerHasWon);
-
+		System.out.println("number of turns: " + turns);
 		keyboard.close();
 	}
 }

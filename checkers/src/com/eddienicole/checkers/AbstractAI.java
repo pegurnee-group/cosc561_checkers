@@ -2,15 +2,17 @@ package com.eddienicole.checkers;
 
 import java.util.ArrayList;
 
-public class AbstractAI extends AbstractPlayer {
+public abstract class AbstractAI extends AbstractPlayer {
 
 	public AbstractAI(boolean isRed) {
 		super(isRed);
 	}
 
+	public abstract MoveInterface computeMove(
+			ArrayList<MoveInterface> legalMoves);
+
 	@Override
 	public MoveInterface getMove(ArrayList<MoveInterface> legalMoves) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return this.computeMove(legalMoves);
+	};
 }
