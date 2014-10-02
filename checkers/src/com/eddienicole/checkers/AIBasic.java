@@ -13,6 +13,21 @@ public class AIBasic extends AbstractAI {
 		return null;
 	}
 
+	private double evaluateBoard(ImaginaryBoard imaginaryBoard) {
+		double toReturn = -1.0;
+
+		// TODO: need to do some evaluation
+
+		return toReturn;
+	}
+
+	private ImaginaryBoard generateBoardBasedOnMove(MoveInterface moveToApply) {
+		ImaginaryBoard toReturn = null;
+
+		// TODO: need to get the board
+		return toReturn;
+	}
+
 	// figuring this shit out
 
 }
