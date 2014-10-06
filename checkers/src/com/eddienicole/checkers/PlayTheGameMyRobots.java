@@ -24,16 +24,22 @@ public class PlayTheGameMyRobots {
 			playerBlack = new AIFirstChoice(black);
 			break;
 		case 2:
-			playerBlack = new AIRandom(black);
+			playerBlack = new AILastChoice(black);
 			break;
 		case 3:
-			playerBlack = new AIBasicPieces(black);
+			playerBlack = new AIRandom(black);
 			break;
 		case 4:
-			playerBlack = new AIBasicPiecesAndBackRowNonsense(black);
+			playerBlack = new AIBasicPieces(black);
 			break;
 		case 5:
+			playerBlack = new AIBasicPiecesAndBackRowNonsense(black);
+			break;
+		case 6:
 			playerBlack = new AIBasicPiecesAndMiddleSquaresOccupied(black);
+			break;
+		case 7:
+			playerBlack = new AIBasicPiecesWithPruning(black);
 			break;
 		default:
 			playerBlack = null;
@@ -48,16 +54,22 @@ public class PlayTheGameMyRobots {
 			playerRed = new AIFirstChoice(red);
 			break;
 		case 2:
-			playerRed = new AIRandom(red);
+			playerRed = new AILastChoice(red);
 			break;
 		case 3:
-			playerRed = new AIBasicPieces(red);
+			playerRed = new AIRandom(red);
 			break;
 		case 4:
-			playerRed = new AIBasicPiecesAndBackRowNonsense(red);
+			playerRed = new AIBasicPieces(red);
 			break;
 		case 5:
+			playerRed = new AIBasicPiecesAndBackRowNonsense(red);
+			break;
+		case 6:
 			playerRed = new AIBasicPiecesAndMiddleSquaresOccupied(red);
+			break;
+		case 7:
+			playerRed = new AIBasicPiecesWithPruning(red);
 			break;
 		default:
 			playerRed = null;

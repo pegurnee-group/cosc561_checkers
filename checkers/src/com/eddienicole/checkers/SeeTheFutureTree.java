@@ -39,6 +39,50 @@ public class SeeTheFutureTree {
 		return this.minimax(this.root, this.maxPly, true).getTheMove();
 	}
 
+	public MoveInterface getTheBestMoveWithPruning() {
+		return this.alphabeta(this.root, this.maxPly, true,
+				Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY)
+				.getTheMove();
+	}
+
+	private ImaginaryBoard alphabeta(FutureNode node, int depthToGo,
+			boolean thePlayer, double alphaValue, double betaValue) {
+		if ((depthToGo == 0) || (node.children.size() == 0)) {
+			return node.theBoard;
+		}
+		if (thePlayer) {
+			ImaginaryBoard bestBoard = node.children.get(0).theBoard;
+			for (FutureNode child : node.children) {
+				ImaginaryBoard tempBoard = this.alphabeta(child, depthToGo - 1,
+						!thePlayer, alphaValue, betaValue);
+				alphaValue = tempBoard.getValue() > alphaValue ? tempBoard
+						.getValue() : alphaValue;
+				child.theBoard.setValue(alphaValue);
+				bestBoard = child.theBoard.compareTo(bestBoard) > 0 ? child.theBoard
+						: bestBoard;
+				if (betaValue <= alphaValue) {
+					break;
+				}
+			}
+			return bestBoard;
+		} else {
+			ImaginaryBoard bestBoard = node.children.get(0).theBoard;
+			for (FutureNode child : node.children) {
+				ImaginaryBoard tempBoard = this.alphabeta(child, depthToGo - 1,
+						!thePlayer, alphaValue, betaValue);
+				betaValue = tempBoard.getValue() < betaValue ? tempBoard
+						.getValue() : betaValue;
+				child.theBoard.setValue(betaValue);
+				bestBoard = child.theBoard.compareTo(bestBoard) > 0 ? child.theBoard
+						: bestBoard;
+				if (betaValue <= alphaValue) {
+					break;
+				}
+			}
+			return bestBoard;
+		}
+	}
+
 	private ImaginaryBoard generateBoardBasedOnMove(MoveInterface moveToApply,
 			ImaginaryBoard previousBoard) {
 		ImaginaryBoard theImaginaryBoardToReturn = new ImaginaryBoard(
@@ -79,7 +123,6 @@ public class SeeTheFutureTree {
 			for (FutureNode child : node.children) {
 				this.getChildren(child, depthToGo - 1, !isRed);
 			}
-
 		}
 	}
 
