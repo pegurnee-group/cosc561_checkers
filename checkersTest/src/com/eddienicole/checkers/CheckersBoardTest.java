@@ -26,7 +26,8 @@ public class CheckersBoardTest extends TestCase {
 	}
 
 	@Test
-	public void testGettersAndSettersForTheBoardAndBoardSpaces() throws Exception {
+	public void testGettersAndSettersForTheBoardAndBoardSpaces()
+			throws Exception {
 		for (int i = 0; i < this.playableSpaces.length; i++) {
 			for (int j = 0; j < this.playableSpaces[i].length; j++) {
 				switch ((int) Math.floor(Math.random() * 8)) {

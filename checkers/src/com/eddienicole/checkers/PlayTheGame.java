@@ -24,23 +24,16 @@ public class PlayTheGame {
 
 		switch (kindOfGame) {
 		case 1:
-			playerBlack = new AIBasic(isBlack);
+			playerBlack = new AIBasicPieces(isBlack);
 			playerRed = new HumanPlayerConsoleOut(isRed);
 			break;
 		case 2:
 			playerBlack = new HumanPlayerConsoleOut(isBlack);
-			playerRed = new AIBasic(isRed);
+			playerRed = new AIBasicPieces(isRed);
 			break;
 		case 3:
-			System.out.println("What level AI? ");
-			int aiLevel = keyboard.nextInt();
-			if (aiLevel == 0) {
-				playerBlack = new AIRandom(isBlack);
-				playerRed = new AIRandom(isRed);
-			} else {
-				playerBlack = new AIBasic(isBlack);
-				playerRed = new AIBasic(isRed);
-			}
+			playerBlack = new AIRandom(isBlack);
+			playerRed = new AIRandom(isRed);
 			break;
 		default:
 			playerBlack = new HumanPlayerConsoleOut(isBlack);

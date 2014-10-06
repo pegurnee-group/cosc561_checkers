@@ -28,8 +28,6 @@ public class MoveFigurerOuter {
 			removeNonJumpMoves(toReturn);
 		}
 
-		jumpHasOccurred = false;
-
 		return toReturn;
 	}
 
@@ -45,8 +43,6 @@ public class MoveFigurerOuter {
 		if (jumpHasOccurred) {
 			removeNonJumpMoves(toReturn);
 		}
-
-		jumpHasOccurred = false;
 		return toReturn;
 	}
 
@@ -252,5 +248,6 @@ public class MoveFigurerOuter {
 				moveIterator.remove();
 			}
 		}
+		jumpHasOccurred = false;
 	}
 }

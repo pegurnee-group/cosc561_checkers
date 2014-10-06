@@ -37,7 +37,7 @@ public class Controller implements ActionListener {
 			if (move.isJump()) {
 				while (MoveFigurerOuter.hasMoreJumps(
 						this.checkersModel.getPlayableSpaces(), move)) {
-					this.drawCurrentBoard();
+					// this.drawCurrentBoard();
 					move = playerWhoseTurnItIs.getMove(MoveFigurerOuter.figure(
 							this.checkersModel.getPlayableSpaces(),
 							playerWhoseTurnItIs.isRed(), move.getTo()));
@@ -76,7 +76,8 @@ public class Controller implements ActionListener {
 		}
 
 		if (moveToApply.isJump()) {
-			PlayableSpaceInterface jumpedPiece = moveToApply.getJumped();
+			PlayableSpaceInterface jumpedPiece = this.checkersModel
+					.getSpaceByPosition(moveToApply.getJumped().getPosition());
 			jumpedPiece.setState(SpaceState.UNOCCUPIED);
 			jumpedPiece.setKing(false);
 		}

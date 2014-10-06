@@ -17,4 +17,7 @@ public class CheckersModel {
 		return this.checkersBoard.getPlayableSpaces();
 	}
 
+	public PlayableSpaceInterface getSpaceByPosition(int position) {
+		return this.checkersBoard.getPlayableSpaces()[(position - 1) / 4][(position - 1) % 4];
+	}
 }
