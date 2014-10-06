@@ -24,12 +24,12 @@ public class PlayTheGame {
 
 		switch (kindOfGame) {
 		case 1:
-			playerBlack = new AIBasicPieces(isBlack);
+			playerBlack = new AIBasicPiecesWithPruning(isBlack);
 			playerRed = new HumanPlayerConsoleOut(isRed);
 			break;
 		case 2:
 			playerBlack = new HumanPlayerConsoleOut(isBlack);
-			playerRed = new AIBasicPieces(isRed);
+			playerRed = new AIBasicPiecesWithPruning(isRed);
 			break;
 		case 3:
 			playerBlack = new AIRandom(isBlack);
