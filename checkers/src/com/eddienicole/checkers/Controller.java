@@ -44,7 +44,9 @@ public class Controller implements ActionListener {
 							this.checkersModel.getPlayableSpaces(),
 							playerWhoseTurnItIs.isRed(), move.getTo()));
 					this.applyMove(move);
-					this.kingMe(move, playerWhoseTurnItIs.isRed());
+					if (this.kingMe(move, playerWhoseTurnItIs.isRed())) {
+						break;
+					}
 				}
 			}
 			return true;
@@ -96,17 +98,20 @@ public class Controller implements ActionListener {
 		fromSpace.setKing(false);
 	}
 
-	private void kingMe(MoveInterface move, boolean itIsRedsTurn) {
+	private boolean kingMe(MoveInterface move, boolean itIsRedsTurn) {
 		if (itIsRedsTurn) {
 			if (move.getTo().getPosition() < 5) {
 				this.checkersModel.getSpaceByPosition(
 						move.getTo().getPosition()).setKing(true);
+				return true;
 			}
 		} else {
 			if (move.getTo().getPosition() > 28) {
 				this.checkersModel.getSpaceByPosition(
 						move.getTo().getPosition()).setKing(true);
+				return true;
 			}
 		}
+		return false;
 	}
 }

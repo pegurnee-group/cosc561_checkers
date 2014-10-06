@@ -48,7 +48,7 @@ public class MoveFigurerOuter {
 
 	public static boolean hasMoreJumps(
 			PlayableSpaceInterface[][] playableSpaces, MoveInterface move) {
-		PlayableSpaceInterface startPoint = move.getTo();
+		PlayableSpaceInterface startPoint = move.getFrom();
 		int column = (startPoint.getPosition() - 1) % 4;
 		int row = (startPoint.getPosition() - 1) / 4;
 
