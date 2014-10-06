@@ -2,9 +2,10 @@ package com.eddienicole.checkers;
 
 public class PlayableSpace implements PlayableSpaceInterface {
 
-	private SpaceState spaceState;
 	private boolean isKing;
+
 	private final int position;
+	private SpaceState spaceState;
 
 	public PlayableSpace(int position) {
 		this.spaceState = SpaceState.UNOCCUPIED;
@@ -14,25 +15,31 @@ public class PlayableSpace implements PlayableSpaceInterface {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (!(obj instanceof PlayableSpaceInterface))
+		}
+		if (!(obj instanceof PlayableSpaceInterface)) {
 			return false;
+		}
 		PlayableSpaceInterface other = (PlayableSpaceInterface) obj;
-		if (isKing != other.isKing())
+		if (this.isKing != other.isKing()) {
 			return false;
-		if (position != other.getPosition())
+		}
+		if (this.position != other.getPosition()) {
 			return false;
-		if (spaceState != other.getState())
+		}
+		if (this.spaceState != other.getState()) {
 			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public int getPosition() {
-		return position;
+		return this.position;
 	}
 
 	@Override
@@ -44,10 +51,10 @@ public class PlayableSpace implements PlayableSpaceInterface {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (isKing ? 1231 : 1237);
-		result = prime * result + position;
-		result = prime * result
-				+ ((spaceState == null) ? 0 : spaceState.hashCode());
+		result = (prime * result) + (this.isKing ? 1231 : 1237);
+		result = (prime * result) + this.position;
+		result = (prime * result)
+				+ ((this.spaceState == null) ? 0 : this.spaceState.hashCode());
 		return result;
 	}
 
@@ -64,6 +71,28 @@ public class PlayableSpace implements PlayableSpaceInterface {
 	@Override
 	public void setState(SpaceState spaceState) {
 		this.spaceState = spaceState;
+	}
+
+	@Override
+	public String toString() {
+		String toReturn = "" + this.position;
+		String state = "";
+		if (this.spaceState == SpaceState.UNOCCUPIED) {
+			state = "u";
+		} else {
+			char color;
+			if (this.spaceState == SpaceState.RED) {
+				color = 'r';
+			} else {
+				color = 'b';
+			}
+			if (this.isKing) {
+				color -= 32;
+			}
+			state = "" + color;
+		}
+
+		return toReturn + state;
 	}
 
 }

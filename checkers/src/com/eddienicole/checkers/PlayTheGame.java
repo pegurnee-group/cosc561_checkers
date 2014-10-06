@@ -50,11 +50,13 @@ public class PlayTheGame {
 				redPlayerHasWon = true;
 				break;
 			}
+			controller.showPreviousMove();
 			controller.drawCurrentBoard();
 			if (!controller.doMove(playerRed)) {
 				redPlayerHasWon = false;
 				break;
 			}
+			controller.showPreviousMove();
 			controller.drawCurrentBoard();
 			turns++;
 		}

@@ -36,6 +36,10 @@ public class CheckerboardView {
 		return boardString;
 	}
 
+	public void showMove(MoveInterface lastMove) {
+		System.out.println(lastMove);
+	}
+
 	private char drawSpace(PlayableSpaceInterface playableSpace) {
 		char piece;
 

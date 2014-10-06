@@ -2,6 +2,7 @@ package com.eddienicole.checkers;
 
 public class Move implements MoveInterface {
 	private final boolean jump;
+
 	private PlayableSpaceInterface jumpedSpace;
 	private final PlayableSpaceInterface spaceFrom;
 	private final PlayableSpaceInterface spaceTo;
@@ -90,6 +91,12 @@ public class Move implements MoveInterface {
 	@Override
 	public void jumped(PlayableSpaceInterface jumpedSpace) {
 		this.jumpedSpace = jumpedSpace;
+	}
+
+	@Override
+	public String toString() {
+		return "Move " + this.spaceFrom + "-" + this.spaceTo
+				+ (this.jump ? " over " + this.jumpedSpace : "");
 	}
 
 }

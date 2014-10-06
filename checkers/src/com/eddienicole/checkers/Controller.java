@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Controller implements ActionListener {
 	private final CheckerboardView checkerboardView;
 	private final CheckersModel checkersModel;
+	private MoveInterface lastMove;
 	private final AbstractPlayer playerBlack;
 	private final AbstractPlayer playerRed;
 
@@ -32,6 +33,7 @@ public class Controller implements ActionListener {
 				playerWhoseTurnItIs.isRed());
 		if (legalMoves.size() > 0) {
 			MoveInterface move = playerWhoseTurnItIs.getMove(legalMoves);
+			this.lastMove = move;
 			this.applyMove(move);
 			this.kingMe(move, playerWhoseTurnItIs.isRed());
 			if (move.isJump()) {
@@ -54,6 +56,11 @@ public class Controller implements ActionListener {
 	public String drawCurrentBoard() {
 		return this.checkerboardView.drawBoard(this.checkersModel
 				.getPlayableSpaces());
+	}
+
+	public void showPreviousMove() {
+		this.checkerboardView.showMove(this.lastMove);
+
 	}
 
 	private void applyMove(MoveInterface moveToApply) {
@@ -100,5 +107,4 @@ public class Controller implements ActionListener {
 			}
 		}
 	}
-
 }
