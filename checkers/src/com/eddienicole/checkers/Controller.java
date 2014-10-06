@@ -99,11 +99,13 @@ public class Controller implements ActionListener {
 	private void kingMe(MoveInterface move, boolean itIsRedsTurn) {
 		if (itIsRedsTurn) {
 			if (move.getTo().getPosition() < 5) {
-				move.getTo().setKing(true);
+				this.checkersModel.getSpaceByPosition(
+						move.getTo().getPosition()).setKing(true);
 			}
 		} else {
 			if (move.getTo().getPosition() > 28) {
-				move.getTo().setKing(true);
+				this.checkersModel.getSpaceByPosition(
+						move.getTo().getPosition()).setKing(true);
 			}
 		}
 	}
