@@ -29,6 +29,12 @@ public class PlayTheGameMyRobots {
 		case 3:
 			playerBlack = new AIBasicPieces(black);
 			break;
+		case 4:
+			playerBlack = new AIBasicPiecesAndBackRowNonsense(black);
+			break;
+		case 5:
+			playerBlack = new AIBasicPiecesAndMiddleSquaresOccupied(black);
+			break;
 		default:
 			playerBlack = null;
 			break;
@@ -46,6 +52,12 @@ public class PlayTheGameMyRobots {
 			break;
 		case 3:
 			playerRed = new AIBasicPieces(red);
+			break;
+		case 4:
+			playerRed = new AIBasicPiecesAndBackRowNonsense(red);
+			break;
+		case 5:
+			playerRed = new AIBasicPiecesAndMiddleSquaresOccupied(red);
 			break;
 		default:
 			playerRed = null;
@@ -73,7 +85,6 @@ public class PlayTheGameMyRobots {
 					break;
 				}
 			}
-
 		}
 		System.out.printf("Data:\nBlack Wins: %6d\nRed Wins: %6d\nTies: %6d",
 				data[0], data[1], data[2]);

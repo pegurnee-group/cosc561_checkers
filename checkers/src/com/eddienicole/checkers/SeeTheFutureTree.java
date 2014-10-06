@@ -17,19 +17,26 @@ public class SeeTheFutureTree {
 
 	}
 
-	private final int LAYERS = 6;
+	private static final int DEFAULT_LAYERS = 6;
+	private final int maxPly;
 	private final FutureNode root;
 	private final AbstractAI theThinkingMan;
 
 	public SeeTheFutureTree(ImaginaryBoard theBoard, AbstractAI theThinkingMan) {
+		this(theBoard, theThinkingMan, DEFAULT_LAYERS);
+	}
+
+	public SeeTheFutureTree(ImaginaryBoard theBoard, AbstractAI theThinkingMan,
+			int maxPly) {
 		this.root = new FutureNode(theBoard, null);
 		this.theThinkingMan = theThinkingMan;
+		this.maxPly = maxPly;
 
-		this.getChildren(this.root, this.LAYERS, this.theThinkingMan.isRed);
+		this.getChildren(this.root, this.maxPly, this.theThinkingMan.isRed);
 	}
 
 	public MoveInterface getTheBestMove() {
-		return this.minimax(this.root, this.LAYERS, true).getTheMove();
+		return this.minimax(this.root, this.maxPly, true).getTheMove();
 	}
 
 	private ImaginaryBoard generateBoardBasedOnMove(MoveInterface moveToApply,
