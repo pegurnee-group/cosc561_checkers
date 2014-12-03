@@ -35,8 +35,8 @@ public class Controller implements ActionListener {
 			MoveInterface move = playerWhoseTurnItIs.getMove(legalMoves);
 			this.lastMove = move;
 			this.applyMove(move);
-			this.kingMe(move, playerWhoseTurnItIs.isRed());
-			if (move.isJump()) {
+			if (!this.kingMe(move, playerWhoseTurnItIs.isRed())
+					&& move.isJump()) {
 				while (MoveFigurerOuter.hasMoreJumps(
 						this.checkersModel.getPlayableSpaces(), move)) {
 					// this.drawCurrentBoard();
@@ -99,6 +99,9 @@ public class Controller implements ActionListener {
 	}
 
 	private boolean kingMe(MoveInterface move, boolean itIsRedsTurn) {
+		if (move.getFrom().isKing()) {
+			return false;
+		}
 		if (itIsRedsTurn) {
 			if (move.getTo().getPosition() < 5) {
 				this.checkersModel.getSpaceByPosition(
