@@ -74,7 +74,8 @@ public class ImaginaryBoard implements Comparable<ImaginaryBoard> {
 		this.value = value;
 	}
 
-	private PlayableSpaceInterface getSpace(int row, int column) {
+	private PlayableSpaceInterface getSpace(int row, int column)
+			throws ArrayIndexOutOfBoundsException {
 		return this.playableSpaces[row][column];
 	}
 

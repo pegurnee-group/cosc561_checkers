@@ -41,6 +41,9 @@ public class PlayTheGameMyRobots {
 		case 7:
 			playerBlack = new AIBasicPiecesWithPruning(black);
 			break;
+		case 8:
+			playerBlack = new AIHunter(black);
+			break;
 		default:
 			playerBlack = null;
 			break;
@@ -70,6 +73,9 @@ public class PlayTheGameMyRobots {
 			break;
 		case 7:
 			playerRed = new AIBasicPiecesWithPruning(red);
+			break;
+		case 8:
+			playerRed = new AIHunter(red);
 			break;
 		default:
 			playerRed = null;
